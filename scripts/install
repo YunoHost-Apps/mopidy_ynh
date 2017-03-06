@@ -34,6 +34,9 @@ sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessi
 sudo apt-get update
 sudo apt-get install -y mopidy
 
+# Copy configuration
+sudo ../conf/mopidy.conf /root/.config/mopidy/
+
 # Running Mopidy as a service
 sudo mopidy local scan
 sudo systemctl enable mopidy
