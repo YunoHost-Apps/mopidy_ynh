@@ -47,7 +47,7 @@
                     "fr": "Voulez vous utiliser Spotify ?"
                 },
                 "choices": ["Yes", "No"],
-                "default": "Yes"
+                "default": "No"
             },
 			{
 				"name": "spotify_user",
@@ -90,7 +90,7 @@
                     "fr": "Voulez vous utiliser Soundcloud ?"
                 },
                 "choices": ["Yes", "No"],
-                "default": "Yes"
+                "default": "No"
             },
 			{
 				"name": "soundcloud_id",
