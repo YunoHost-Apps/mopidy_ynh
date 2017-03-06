@@ -32,7 +32,7 @@ sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessi
 
 # Install Mopidy and all dependencies:
 sudo apt-get update
-sudo apt-get install mopidy
+sudo apt-get install -y mopidy
 
 # Running Mopidy as a service
 sudo mopidy local scan
