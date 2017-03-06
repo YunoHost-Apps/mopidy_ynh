@@ -22,7 +22,7 @@ EXIT_PROPERLY () {	# Provoque l'arrêt du script en cas d'erreur. Et nettoye les
 	fi
 
 	# Compense le bug de ssowat qui ne supprime pas l'entrée de l'app en cas d'erreur d'installation.
-	sudo sed -i "\@\"$domain$path/\":@d" /etc/ssowat/conf.json
+	# sudo sed -i "\@\"$domain$path/\":@d" /etc/ssowat/conf.json
 
 	if [ "$ynh_version" = "2.2" ]; then
 		/bin/bash $script_dir/remove	# Appel le script remove. En 2.2, ce comportement n'est pas automatique.
