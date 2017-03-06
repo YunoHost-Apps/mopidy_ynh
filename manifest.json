@@ -32,7 +32,7 @@
 				"example": "example.org"
 			},
 			{
-				"name": "admin",
+				"name": "admin_mopidy",
 				"type": "user",
 				"ask": {
 					"en": "Choose the Mopidy administrator (must be an existing YunoHost user)",
