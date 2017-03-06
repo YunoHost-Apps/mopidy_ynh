@@ -8,7 +8,7 @@ source .fonctions	# Charge les fonctions génériques habituellement utilisées 
 TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
 
 domain=$YNH_APP_ARG_DOMAIN
-admin_mopidy=$YNH_APP_ARG_ADMIN
+admin_mopidy=$YNH_APP_ARG_ADMIN_MOPIDY
 
 app=$YNH_APP_INSTANCE_NAME
 
