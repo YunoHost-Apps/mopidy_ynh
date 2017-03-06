@@ -44,8 +44,8 @@ sudo systemctl restart mopidy
 sudo systemctl status mopidy
 
 ## Install mopidy-musicbox-webclient
-sudo cd /tmp/
+cd /tmp/
 sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
-sudo cd mopidy-musicbox-webclient
+cd mopidy-musicbox-webclient
 sudo python setup.py install
 sudo rm -fr mopidy-musicbox-webclient
