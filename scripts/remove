@@ -12,7 +12,7 @@ source /usr/share/yunohost/helpers
 app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get $app domain)
 
-sudo apt-get remove --purge mopidy
+sudo apt-get remove --purge -y mopidy
 
 # Régénère la configuration de SSOwat
 sudo yunohost app ssowatconf
