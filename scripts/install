@@ -19,7 +19,7 @@ CHECK_VAR "$app" "app name not set"
 
 CHECK_USER "$admin_mopidy"
 
-CHECK_DOMAINPATH
+# CHECK_DOMAINPATH
 
 ynh_app_setting_set $app domain $domain
 ynh_app_setting_set $app admin $admin_mopidy
