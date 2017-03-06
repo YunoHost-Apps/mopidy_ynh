@@ -3,6 +3,8 @@
 # Exit on command errors and treat unset variables as an error
 set -eu
 
+source .fonctions	# Charge les fonctions génériques habituellement utilisées dans le script
+
 TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
 
 domain=$YNH_APP_ARG_DOMAIN
