@@ -8,11 +8,17 @@ source .fonctions	# Charge les fonctions génériques habituellement utilisées 
 # Source app helpers
 source /usr/share/yunohost/helpers
 
-# Récupère les infos de l'application.
+# Get application informations
 app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get $app domain)
 
+# Remove application
 sudo apt-get remove --purge -y mopidy
+sudo pip uninstall mopidy_musicbox_webclient
+
+# disallow firewall port
+sudo yunohost firewall disallow 6600
+sudo yunohost firewall disallow 6680
 
 # Régénère la configuration de SSOwat
 sudo yunohost app ssowatconf

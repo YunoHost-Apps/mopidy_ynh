@@ -39,6 +39,66 @@
 					"fr": "Administrateur de Mopidy (doit être un utilisateur YunoHost existant)"
 				},
 				"example": "johndoe"
+			},
+			{
+                "name": "is_spotify",
+                "ask": {
+                    "en": "You want to use Spotify ?",
+                    "fr": "Voulez vous utiliser Spotify ?"
+                },
+                "choices": ["Yes", "No"],
+                "default": "Yes"
+            },
+			{
+				"name": "spotify_user",
+				"type": "user",
+				"ask": {
+					"en": "User Spotify",
+					"fr": "Utilisateur Spotify"
+				},
+				"example": "johndoe"
+			},
+			{
+				"name": "spotify_pass",
+				"type": "password",
+				"ask": {
+					"en": "Password Spotify",
+					"fr": "Mot de passe Spotify"
+				},
+				"example": "myreallystrengthpassword"
+			},
+			{
+				"name": "spotify_id",
+				"type": "id",
+				"ask": {
+					"en": "client ID Spotify",
+					"fr": "ID client Spotify"
+				}
+			},
+			{
+				"name": "spotify_id_secret",
+				"type": "id",
+				"ask": {
+					"en": "client secret ID Spotify",
+					"fr": "ID client secret Spotify"
+				}
+			},
+			{
+                "name": "is_soundcloud",
+                "ask": {
+                    "en": "You want to use Soundcloud ?",
+                    "fr": "Voulez vous utiliser Soundcloud ?"
+                },
+                "choices": ["Yes", "No"],
+                "default": "Yes"
+            },
+			{
+				"name": "soundcloud_id",
+				"type": "id",
+				"ask": {
+					"en": "Soundcloud ID Spotify",
+					"fr": "ID Soundcloud Spotify"
+				}
 			}
 		]
 	}

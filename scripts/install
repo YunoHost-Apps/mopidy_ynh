@@ -9,6 +9,18 @@ TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
 
 domain=$YNH_APP_ARG_DOMAIN
 admin_mopidy=$YNH_APP_ARG_ADMIN_MOPIDY
+if [ "$is_spotify" = "Yes" ];
+then
+	spotify_user=$YNH_APP_ARG_SPOTIFY_USER
+	spotify_pass=$YNH_APP_ARG_SPOTIFY_PASS
+	spotify_id=$YNH_APP_ARG_SPOTIFY_ID
+	spotify_id_secret=$YNH_APP_ARG_SPOTIFY_ID_SECRET
+fi
+
+if [ "$is_soundcloud" = "Yes" ];
+then
+	soundcloud_id=$YNH_APP_ARG_SOUNDCLOUD_ID
+fi
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -24,6 +36,19 @@ CHECK_USER "$admin_mopidy"
 ynh_app_setting_set $app domain $domain
 ynh_app_setting_set $app admin $admin_mopidy
 
+if [ "$is_spotify" = "Yes" ];
+then
+	ynh_app_setting_set $app spotify_user $spotify_user
+	ynh_app_setting_set $app spotify_pass $spotify_pass
+	ynh_app_setting_set $app spotify_id $spotify_id
+	ynh_app_setting_set $app spotify_id_secret $spotify_id_secret
+fi
+
+if [ "$is_soundcloud" = "Yes" ];
+then
+	ynh_app_setting_set $app soundcloud_id $soundcloud_id
+fi
+
 # Add the archive’s GPG key:
 wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
 
@@ -35,7 +60,32 @@ sudo apt-get update
 sudo apt-get install -y mopidy
 
 # Copy configuration
-sudo cp ../conf/mopidy.conf /root/.config/mopidy/
+sudo rm -fr /root/.config/mopidy/
+ip_local=$(echo hostname -I | awk '{ print $1 }')
+sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
+
+if [ "$is_spotify" = "Yes" ];
+then
+	sudo sed -i '/[spotify]/r enabled = true' ../conf/mopidy.conf
+	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
+	sudo sed -i "s@__PWD_SPOTIFY__@$spotify_pass@g" ../conf/mopidy.conf
+	sudo sed -i "s@__ID_SPOTIFY__@$spotify_id@g" ../conf/mopidy.conf
+	sudo sed -i "s@__SECRET_SPOTIFY__@$spotify_id_secret@g" ../conf/mopidy.conf
+else
+	sudo sed -i "s@__USER_SPOTIFY__@@g" ../conf/mopidy.conf
+	sudo sed -i "s@__PWD_SPOTIFY__@@g" ../conf/mopidy.conf
+	sudo sed -i "s@__ID_SPOTIFY__@@g" ../conf/mopidy.conf
+	sudo sed -i "s@__SECRET_SPOTIFY__@@g" ../conf/mopidy.conf
+fi
+
+if [ "$is_soundcloud" = "Yes" ];
+then
+	sudo sed -i "s@__SOUNDCLOUD__@$soundcloud_id@g" ../conf/mopidy.conf
+else
+	sudo sed -i "s@__SOUNDCLOUD__@@g" ../conf/mopidy.conf
+fi
+
+sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
 
 # Running Mopidy as a service
 sudo mopidy local scan
@@ -49,3 +99,7 @@ sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
 cd mopidy-musicbox-webclient
 sudo python setup.py install
 sudo rm -fr mopidy-musicbox-webclient
+
+# Allow port 
+sudo yunohost firewall allow TCP 6600
+sudo yunohost firewall allow TCP 6680
