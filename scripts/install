@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Exit on command errors and treat unset variables as an error
+set -eu
+
+CLEAN_SETUP () {
+# Nettoyage des résidus d'installation non pris en charge par le script remove.
+}
+TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
+
+domain=$YNH_APP_ARG_DOMAIN
+admin_mopidy=$YNH_APP_ARG_ADMIN
+
+app=$YNH_APP_INSTANCE_NAME
+
+# Source app helpers
+source /usr/share/yunohost/helpers
+
+CHECK_VAR "$app" "app name not set"
+
+CHECK_USER "$admin_mopidy"
+
+CHECK_DOMAINPATH
+
+ynh_app_setting_set $app domain $domain
+ynh_app_setting_set $app admin $admin_mopidy
+
+# Add the archive’s GPG key:
+wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
+
+# Add the APT repo to your package sources:
+sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie.list
+
+# Install Mopidy and all dependencies:
+sudo apt-get update
+sudo apt-get install mopidy
+
+# Running Mopidy as a service
+sudo mopidy local scan
+sudo systemctl enable mopidy
+sudo systemctl restart mopidy
+sudo systemctl status mopidy
+
+## Install mopidy-musicbox-webclient
+sudo cd /tmp/
+sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
+sudo cd mopidy-musicbox-webclient
+sudo python setup.py install
+sudo rm -fr mopidy-musicbox-webclient
