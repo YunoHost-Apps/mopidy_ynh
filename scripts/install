@@ -35,7 +35,7 @@ sudo apt-get update
 sudo apt-get install -y mopidy
 
 # Copy configuration
-sudo ../conf/mopidy.conf /root/.config/mopidy/
+sudo cp ../conf/mopidy.conf /root/.config/mopidy/
 
 # Running Mopidy as a service
 sudo mopidy local scan
