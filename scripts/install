@@ -84,9 +84,9 @@ sudo systemctl restart mopidy
 sudo systemctl status mopidy
 
 # Delete directory and file 
-sudo rm -fr /root/.cache/mopidy
-sudo rm -fr /root/.config/mopidy
-sudo rm -fr /root/.local/share/mopidy
+# sudo rm -fr /root/.cache/mopidy
+# sudo rm -fr /root/.config/mopidy
+# sudo rm -fr /root/.local/share/mopidy
 
 ## Install mopidy-musicbox-webclient
 cd /tmp/
