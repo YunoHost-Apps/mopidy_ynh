@@ -32,6 +32,10 @@ sudo rm -fr /usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3
 sudo yunohost firewall disallow TCP 6600
 sudo yunohost firewall disallow TCP 6680
 
+SECURE_REMOVE '/var/www/$app'	# Suppression du dossier de l'application
+
+REMOVE_NGINX_CONF	# Suppression de la configuration nginx
+
 # Régénère la configuration de SSOwat
 sudo yunohost app ssowatconf
 
