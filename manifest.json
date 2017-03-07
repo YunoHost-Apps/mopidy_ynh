@@ -88,8 +88,8 @@
 				"name": "soundcloud_id",
 				"type": "id",
 				"ask": {
-					"en": "Soundcloud ID Spotify",
-					"fr": "ID Soundcloud Spotify"
+					"en": "Soundcloud ID",
+					"fr": "ID Soundcloud"
 				}
 			}
 		]
