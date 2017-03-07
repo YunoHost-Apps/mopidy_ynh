@@ -25,6 +25,9 @@ CHECK_VAR "$app" "app name not set"
 
 CHECK_USER "$admin_mopidy"
 
+# Create a www finalpath
+sudo mkdir -p /var/lib/mopidy/www
+
 CHECK_DOMAINPATH
 
 CHECK_FINALPATH
