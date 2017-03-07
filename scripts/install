@@ -86,6 +86,8 @@ sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
 sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
 sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
 
+sudo cp ../conf/index.html $final_path
+
 # Copy config mopidy
 sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
 sudo mkdir /root/.config/mopidy
