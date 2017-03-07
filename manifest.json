@@ -72,7 +72,7 @@
 				"name": "spotify_id",
 				"type": "id",
 				"ask": {
-					"en": "client ID Spotify",
+					"en": "Client ID Spotify",
 					"fr": "ID client Spotify"
 				}
 			},
@@ -80,7 +80,7 @@
 				"name": "spotify_id_secret",
 				"type": "id",
 				"ask": {
-					"en": "client secret ID Spotify",
+					"en": "Client secret ID Spotify",
 					"fr": "ID client secret Spotify"
 				}
 			},

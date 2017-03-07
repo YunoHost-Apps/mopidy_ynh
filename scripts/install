@@ -74,6 +74,7 @@ else
 fi
 
 sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
+sudo mkdir /root/.config/mopidy
 sudo cp ../conf/mopidy.conf /root/.config/mopidy/
 
 # Running Mopidy as a service
