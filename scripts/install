@@ -78,6 +78,15 @@ else
 	sudo sed -i "s@__SOUNDCLOUD__@@g" ../conf/mopidy.conf
 fi
 
+# Copy config nginx
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Change file configuration for nginx
+sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
+sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
+sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Copy config mopidy
 sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
 sudo mkdir /root/.config/mopidy
 sudo cp ../conf/mopidy.conf /root/.config/mopidy/
@@ -102,14 +111,6 @@ sudo python setup.py install
 # Allow port 
 sudo yunohost firewall allow TCP 6600
 sudo yunohost firewall allow TCP 6680
-
-# Copy config nginx
-sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
-
-# Change file configuration for nginx
-sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
-sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
-sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
 
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
