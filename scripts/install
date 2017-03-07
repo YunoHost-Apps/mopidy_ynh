@@ -48,6 +48,11 @@ sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessi
 sudo apt-get update
 sudo apt-get install -y mopidy
 
+# Delete directory and file 
+sudo rm -fr /root/.cache/mopidy
+sudo rm -fr /root/.config/mopidy
+sudo rm -fr /root/.local/share/mopidy
+
 # Copy configuration
 sudo rm -fr /root/.config/mopidy/
 ip_local=$(echo hostname -I | awk '{ print $1 }')
