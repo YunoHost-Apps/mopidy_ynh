@@ -19,21 +19,20 @@ sudo pip uninstall mopidy_musicbox_webclient
 sleep 4
 
 # Delete stupid file
-# sudo rm -fr /root/.config/mopidy
-# sudo rm -fr /root/.cache/mopidy
-# sudo rm -fr /root/.local/share/mopidy
-sudo rm -fr /usr/local/bin/mopidy
-sudo rm -fr /usr/share/mopidy
-sudo rm -fr /var/lib/mopidy
-sudo rm -fr /etc/apt/sources.list.d/mopidy.list
-sudo rm -fr /usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg
-sudo rm -fr /tmp/mopidy-musicbox-webclient
+# SECURE_REMOVE '/root/.config/mopidy'
+# SECURE_REMOVE '/root/.cache/mopidy'
+# SECURE_REMOVE '/root/.local/share/mopidy'
+SECURE_REMOVE '/usr/local/bin/mopidy'
+SECURE_REMOVE '/usr/share/mopidy'
+SECURE_REMOVE '/var/lib/mopidy'
+SECURE_REMOVE '/etc/apt/sources.list.d/mopidy.list'
+SECURE_REMOVE '/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg'
+SECURE_REMOVE '/tmp/mopidy-musicbox-webclient'
+SECURE_REMOVE '/var/www/$app'
 
 # disallow firewall port
 sudo yunohost firewall disallow TCP 6600
 sudo yunohost firewall disallow TCP 6680
-
-SECURE_REMOVE '/var/www/$app'	# Suppression du dossier de l'application
 
 REMOVE_NGINX_CONF	# Suppression de la configuration nginx
 
