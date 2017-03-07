@@ -48,11 +48,6 @@ sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessi
 sudo apt-get update
 sudo apt-get install -y mopidy
 
-# Delete directory and file 
-sudo rm -fr /root/.cache/mopidy
-sudo rm -fr /root/.config/mopidy
-sudo rm -fr /root/.local/share/mopidy
-
 # Copy configuration
 sudo rm -fr /root/.config/mopidy/
 ip_local=$(echo hostname -I | awk '{ print $1 }')
@@ -80,12 +75,18 @@ else
 fi
 
 sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
+sudo cp ../conf/mopidy.conf /root/.config/mopidy/
 
 # Running Mopidy as a service
 sudo mopidy local scan
 sudo systemctl enable mopidy
 sudo systemctl restart mopidy
 sudo systemctl status mopidy
+
+# Delete directory and file 
+sudo rm -fr /root/.cache/mopidy
+sudo rm -fr /root/.config/mopidy
+sudo rm -fr /root/.local/share/mopidy
 
 ## Install mopidy-musicbox-webclient
 cd /tmp/

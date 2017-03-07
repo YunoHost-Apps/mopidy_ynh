@@ -19,13 +19,13 @@ sudo pip uninstall mopidy_musicbox_webclient
 sleep 4
 
 # Delete stupid file
+# sudo rm -fr /root/.config/mopidy
+# sudo rm -fr /root/.cache/mopidy
+# sudo rm -fr /root/.local/share/mopidy
 sudo rm -fr /usr/local/bin/mopidy
 sudo rm -fr /usr/share/mopidy
-sudo rm -fr /root/.config/mopidy
 sudo rm -fr /var/lib/mopidy
 sudo rm -fr /etc/apt/sources.list.d/mopidy.list
-sudo rm -fr /root/.cache/mopidy
-sudo rm -fr /root/.local/share/mopidy
 sudo rm -fr /usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg
 
 # disallow firewall port
