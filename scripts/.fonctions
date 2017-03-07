@@ -52,7 +52,7 @@ CHECK_DOMAINPATH () {	# Vérifie la disponibilité du path et du domaine.
 }
 
 CHECK_FINALPATH () {	# Vérifie que le dossier de destination n'est pas déjà utilisé.
-	final_path=/var/lib/mopidy/www
+	final_path=/var/www/$app
 	if [ -e "$final_path" ]
 	then
 		echo "This path already contains a folder" >&2
