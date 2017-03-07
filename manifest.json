@@ -41,15 +41,6 @@
 				"example": "johndoe"
 			},
 			{
-                "name": "is_spotify",
-                "ask": {
-                    "en": "You want to use Spotify ?",
-                    "fr": "Voulez vous utiliser Spotify ?"
-                },
-                "choices": ["Yes", "No"],
-                "default": "No"
-            },
-			{
 				"name": "spotify_user",
 				"type": "user",
 				"ask": {
@@ -83,15 +74,6 @@
 					"fr": "ID client secret Spotify"
 				}
 			},
-			{
-                "name": "is_soundcloud",
-                "ask": {
-                    "en": "You want to use Soundcloud ?",
-                    "fr": "Voulez vous utiliser Soundcloud ?"
-                },
-                "choices": ["Yes", "No"],
-                "default": "No"
-            },
 			{
 				"name": "soundcloud_id",
 				"type": "id",

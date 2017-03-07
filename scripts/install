@@ -8,20 +8,13 @@ source .fonctions	# Charge les fonctions génériques habituellement utilisées 
 TRAP_ON	# Active trap pour arrêter le script si une erreur est détectée.
 
 domain=$YNH_APP_ARG_DOMAIN
+path=$YNH_APP_ARG_PATH
 admin_mopidy=$YNH_APP_ARG_ADMIN_MOPIDY
-
-if [ "$is_spotify" = "Yes" ];
-then
-	spotify_user=$YNH_APP_ARG_SPOTIFY_USER
-	spotify_pass=$YNH_APP_ARG_SPOTIFY_PASS
-	spotify_id=$YNH_APP_ARG_SPOTIFY_ID
-	spotify_id_secret=$YNH_APP_ARG_SPOTIFY_ID_SECRET
-fi
-
-if [ "$is_soundcloud" = "Yes" ];
-then
-	soundcloud_id=$YNH_APP_ARG_SOUNDCLOUD_ID
-fi
+spotify_user=$YNH_APP_ARG_SPOTIFY_USER
+spotify_pass=$YNH_APP_ARG_SPOTIFY_PASS
+spotify_id=$YNH_APP_ARG_SPOTIFY_ID
+spotify_id_secret=$YNH_APP_ARG_SPOTIFY_ID_SECRET
+soundcloud_id=$YNH_APP_ARG_SOUNDCLOUD_ID
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -34,21 +27,16 @@ CHECK_USER "$admin_mopidy"
 
 # CHECK_DOMAINPATH
 
+CHECK_FINALPATH
+
 ynh_app_setting_set $app domain $domain
+ynh_app_setting_set $app path $path
 ynh_app_setting_set $app admin $admin_mopidy
-
-if [ "$is_spotify" = "Yes" ];
-then
-	ynh_app_setting_set $app spotify_user $spotify_user
-	ynh_app_setting_set $app spotify_pass $spotify_pass
-	ynh_app_setting_set $app spotify_id $spotify_id
-	ynh_app_setting_set $app spotify_id_secret $spotify_id_secret
-fi
-
-if [ "$is_soundcloud" = "Yes" ];
-then
-	ynh_app_setting_set $app soundcloud_id $soundcloud_id
-fi
+ynh_app_setting_set $app spotify_user $spotify_user
+ynh_app_setting_set $app spotify_pass $spotify_pass
+ynh_app_setting_set $app spotify_id $spotify_id
+ynh_app_setting_set $app spotify_id_secret $spotify_id_secret
+ynh_app_setting_set $app soundcloud_id $soundcloud_id
 
 # Add the archive’s GPG key:
 wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
@@ -65,7 +53,7 @@ sudo rm -fr /root/.config/mopidy/
 ip_local=$(echo hostname -I | awk '{ print $1 }')
 sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
 
-if [ "$is_spotify" = "Yes" ];
+if [ -n "$spotify_user" ];
 then
 	sudo sed -i '/[spotify]/r enabled = true' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
@@ -79,7 +67,7 @@ else
 	sudo sed -i "s@__SECRET_SPOTIFY__@@g" ../conf/mopidy.conf
 fi
 
-if [ "$is_soundcloud" = "Yes" ];
+if [ -n "$soundcloud_id" ];
 then
 	sudo sed -i "s@__SOUNDCLOUD__@$soundcloud_id@g" ../conf/mopidy.conf
 else
@@ -104,3 +92,20 @@ sudo rm -fr mopidy-musicbox-webclient
 # Allow port 
 sudo yunohost firewall allow TCP 6600
 sudo yunohost firewall allow TCP 6680
+
+# Copy config nginx
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Change file configuration for nginx
+sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
+sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
+sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Access public for curl
+ynh_app_setting_set $app unprotected_uris "/"
+
+# Reload SSOwat configuration
+sudo yunohost app ssowatconf
+
+# Reload Nginx and regenerate SSOwat conf
+sudo service nginx reload
