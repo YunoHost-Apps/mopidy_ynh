@@ -27,7 +27,7 @@ Depuis l'interface web, aller dans "Browse" > "File" > "Media". Sur cette page v
 
 ### Problème pouvant survenir
 
-Il se peut que vous n'ayez pas de son, je vous invite à vous renseigner sur [la documentation de de Mopidy](https://docs.mopidy.com/en/latest/audio/).
+Il se peut que vous n'ayez pas de son, je vous invite à vous renseigner sur [la documentation de Mopidy](https://docs.mopidy.com/en/latest/audio/).
 
 ### Pour les bidouilleurs
 
@@ -78,7 +78,7 @@ From the web interface, go to "Browse"> "File"> "Media". On this page you have a
 
 ### Troubleshooting
 
-You may have no sound,check [Mopidy's documentation] (https://docs.mopidy.com/en/latest/audio/).
+You may have no sound, check [Mopidy's documentation] (https://docs.mopidy.com/en/latest/audio/).
 
 ### For hackers
 
