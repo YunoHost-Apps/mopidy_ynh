@@ -32,11 +32,17 @@ CHECK_FINALPATH
 ynh_app_setting_set $app domain $domain
 ynh_app_setting_set $app path $path
 ynh_app_setting_set $app admin $admin_mopidy
-ynh_app_setting_set $app spotify_user $spotify_user
-ynh_app_setting_set $app spotify_pass $spotify_pass
-ynh_app_setting_set $app spotify_id $spotify_id
-ynh_app_setting_set $app spotify_id_secret $spotify_id_secret
-ynh_app_setting_set $app soundcloud_id $soundcloud_id
+if [ -n "$spotify_user" ];
+then
+	ynh_app_setting_set $app spotify_user $spotify_user
+	ynh_app_setting_set $app spotify_pass $spotify_pass
+	ynh_app_setting_set $app spotify_id $spotify_id
+	ynh_app_setting_set $app spotify_id_secret $spotify_id_secret
+fi
+if [ -n "$soundcloud_id" ];
+then
+	ynh_app_setting_set $app soundcloud_id $soundcloud_id
+fi
 
 # Create final_path and check
 sudo mkdir "$final_path"
@@ -57,7 +63,7 @@ sudo apt-get install -y mopidy
 ip_local=$(hostname -I | awk '{ print $1 }')
 sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
 
-if [ -z "$spotify_user" ];
+if [ -n "$spotify_user" ];
 then
 	# sudo sed -i '/[spotify]/a enabled = true' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
@@ -71,7 +77,7 @@ else
 	sudo sed -i "s@__SECRET_SPOTIFY__@@g" ../conf/mopidy.conf
 fi
 
-if [ -z "$soundcloud_id" ];
+if [ -n "$soundcloud_id" ];
 then
 	sudo sed -i "s@__SOUNDCLOUD__@$soundcloud_id@g" ../conf/mopidy.conf
 else
