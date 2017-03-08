@@ -143,8 +143,11 @@ sudo yunohost firewall allow TCP 6680
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
 
-# Reload SSOwat configuration
-sudo yunohost app ssowatconf
-
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
+
+# Add Mopidy into YunoHost services
+sudo yunohost service add mopidy --log "/var/log/mopidy/mopidy.log"
+
+# Reload SSOwat configuration
+sudo yunohost app ssowatconf

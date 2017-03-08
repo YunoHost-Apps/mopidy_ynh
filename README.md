@@ -31,6 +31,8 @@ Il se peut que vous n'ayez pas de son, je vous invite à vous renseigner sur [la
 
 ### Pour les bidouilleurs
 
+Vous pouvez arrêter le service depuis la page "Services" dans l'interface d'administration de YunoHost.
+
 Les fichiers de configuration se trouve dans le répertoire /usr/share/mopidy/conf.d
 
 *Les lignes de commandes relative à Mopidy*
@@ -50,7 +52,7 @@ Activer ou désactiver Mopidy
 `$ sudo systemctl disable mopidy` 
 
 Si vous ajoutez de nouveaux fichiers dans le répertoire local, rescanner votre répertoire.
-`$ sudo mopidy local scan`
+`$ mopidy local scan`
 
 ## Why Mopidy?
 
@@ -82,6 +84,8 @@ You may have no sound, check [Mopidy's documentation] (https://docs.mopidy.com/e
 
 ### For hackers
 
+You can stop the service from the "Services" page in the YunoHost administration interface.
+
 The configuration files can be found in the directory /usr/share/mopidy/conf.d
 
 *Commandline for Mopidy*
@@ -97,7 +101,7 @@ Enable or disable Mopidy
 `$ sudo systemctl disable mopidy`
 
 If you add new files to the local directory, rescan your directory.
-`$ sudo mopidy local scan`
+`$ mopidy local scan`
 
 ## Versionning
 

@@ -38,4 +38,8 @@ sudo cp -a "${backup_dir}/var/lib/$app" "/var/lib/$app"
 # Set permissions
 sudo chown -R www-data: $final_path
 
+# Restart service and add service into YunoHost
+sudo service mopidy restart
+sudo yunohost service add mopidy --log "/var/log/mopidy/mopidy.log"
+
 sudo yunohost app ssowatconf
