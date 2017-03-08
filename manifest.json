@@ -53,10 +53,10 @@
 			{
 				"name": "spotify_user",
 				"type": "user",
-				"optional": True,
+				"optional": true,
 				"ask": {
-					"en": "User Spotify",
-					"fr": "Utilisateur Spotify"
+					"en": "User Spotify (Optional field)",
+					"fr": "Utilisateur Spotify (Champs optionnel)"
 				},
 				"example": "johndoe"
 			},
@@ -65,8 +65,8 @@
 				"type": "password",
 				"optional": true,
 				"ask": {
-					"en": "Password Spotify",
-					"fr": "Mot de passe Spotify"
+					"en": "Password Spotify (Optional field)",
+					"fr": "Mot de passe Spotify (Champs optionnel)"
 				},
 				"example": "myreallystrengthpassword"
 			},
@@ -75,8 +75,8 @@
 				"type": "id",
 				"optional": true,
 				"ask": {
-					"en": "Client ID Spotify",
-					"fr": "ID client Spotify"
+					"en": "Client ID Spotify (Optional field)",
+					"fr": "ID client Spotify (Champs optionnel)"
 				}
 			},
 			{
@@ -84,8 +84,8 @@
 				"type": "id",
 				"optional": true,
 				"ask": {
-					"en": "Client secret ID Spotify",
-					"fr": "ID client secret Spotify"
+					"en": "Client secret ID Spotify (Optional field)",
+					"fr": "ID client secret Spotify (Champs optionnel)"
 				}
 			},
 			{
@@ -93,8 +93,8 @@
 				"type": "id",
 				"optional": true,
 				"ask": {
-					"en": "Soundcloud ID",
-					"fr": "ID Soundcloud"
+					"en": "Soundcloud ID (Optional field)",
+					"fr": "ID Soundcloud (Champs optionnel)"
 				}
 			}
 		]
