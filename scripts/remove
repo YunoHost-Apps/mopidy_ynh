@@ -29,6 +29,7 @@ fi
 if [ -d "/root/.local/share/$app" ]; then
 	SECURE_REMOVE '/root/.local/share/$app'
 fi
+
 SECURE_REMOVE '/usr/local/bin/$app'
 SECURE_REMOVE '/usr/share/$app'
 SECURE_REMOVE '/var/lib/$app'
