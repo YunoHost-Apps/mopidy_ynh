@@ -15,7 +15,7 @@ domain=$(ynh_app_setting_get $app domain)
 # Remove application
 sudo apt-get remove --purge -y mopidy
 sleep 4
-sudo pip uninstall mopidy_musicbox_webclient
+sudo pip uninstall -y mopidy_musicbox_webclient
 sleep 4
 
 # Delete stupid file
