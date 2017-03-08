@@ -59,7 +59,7 @@ sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
 
 if [ -n "$spotify_user" ];
 then
-	sudo sed -i '/[spotify]/a enabled = true' ../conf/mopidy.conf
+	# sudo sed -i '/[spotify]/a enabled = true' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
 	sudo sed -i "s@__PWD_SPOTIFY__@$spotify_pass@g" ../conf/mopidy.conf
 	sudo sed -i "s@__ID_SPOTIFY__@$spotify_id@g" ../conf/mopidy.conf
@@ -100,6 +100,8 @@ sudo systemctl restart mopidy
 sudo systemctl status mopidy
 
 # Delete directory and file 
+# Mopidy create this directory afer install
+# but this files create a confli with a mopidy configuration
 sudo rm -fr /root/.cache/mopidy
 sudo rm -fr /root/.config/mopidy
 sudo rm -fr /root/.local/share/mopidy
