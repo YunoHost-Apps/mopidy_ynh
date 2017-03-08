@@ -65,12 +65,13 @@ sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
 
 if [ -n "$spotify_user" ];
 then
-	# sudo sed -i '/[spotify]/a enabled = true' ../conf/mopidy.conf
+	sudo sed -i '/\[spotify\]/a enabled = true' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
 	sudo sed -i "s@__PWD_SPOTIFY__@$spotify_pass@g" ../conf/mopidy.conf
 	sudo sed -i "s@__ID_SPOTIFY__@$spotify_id@g" ../conf/mopidy.conf
 	sudo sed -i "s@__SECRET_SPOTIFY__@$spotify_id_secret@g" ../conf/mopidy.conf
 else
+	sudo sed -i '/\[spotify\]/a enabled = false' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@@g" ../conf/mopidy.conf
 	sudo sed -i "s@__PWD_SPOTIFY__@@g" ../conf/mopidy.conf
 	sudo sed -i "s@__ID_SPOTIFY__@@g" ../conf/mopidy.conf
