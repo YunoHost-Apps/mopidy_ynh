@@ -53,6 +53,7 @@
 			{
 				"name": "spotify_user",
 				"type": "user",
+				"optional": true,
 				"ask": {
 					"en": "User Spotify",
 					"fr": "Utilisateur Spotify"
@@ -62,6 +63,7 @@
 			{
 				"name": "spotify_pass",
 				"type": "password",
+				"optional": true,
 				"ask": {
 					"en": "Password Spotify",
 					"fr": "Mot de passe Spotify"
@@ -71,6 +73,7 @@
 			{
 				"name": "spotify_id",
 				"type": "id",
+				"optional": true,
 				"ask": {
 					"en": "Client ID Spotify",
 					"fr": "ID client Spotify"
@@ -79,6 +82,7 @@
 			{
 				"name": "spotify_id_secret",
 				"type": "id",
+				"optional": true,
 				"ask": {
 					"en": "Client secret ID Spotify",
 					"fr": "ID client secret Spotify"
@@ -87,6 +91,7 @@
 			{
 				"name": "soundcloud_id",
 				"type": "id",
+				"optional": true,
 				"ask": {
 					"en": "Soundcloud ID",
 					"fr": "ID Soundcloud"
