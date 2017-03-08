@@ -57,7 +57,7 @@ sudo apt-get install -y mopidy
 ip_local=$(hostname -I | awk '{ print $1 }')
 sudo sed -i "s@__IPLOCAL__@$ip_local@g" ../conf/mopidy.conf
 
-if [ $spotify_user ];
+if [ -z "$spotify_user" ];
 then
 	# sudo sed -i '/[spotify]/a enabled = true' ../conf/mopidy.conf
 	sudo sed -i "s@__USER_SPOTIFY__@$spotify_user@g" ../conf/mopidy.conf
@@ -71,7 +71,7 @@ else
 	sudo sed -i "s@__SECRET_SPOTIFY__@@g" ../conf/mopidy.conf
 fi
 
-if [ $soundcloud_id ];
+if [ -z "$soundcloud_id" ];
 then
 	sudo sed -i "s@__SOUNDCLOUD__@$soundcloud_id@g" ../conf/mopidy.conf
 else
