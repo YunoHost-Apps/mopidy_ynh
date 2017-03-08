@@ -86,12 +86,17 @@ sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
 sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
 sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
 
+# Install index.html but it's not necessary
 sudo cp ../conf/index.html $final_path
 sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
+
+# Check permission for $final_path
+sudo chown -R www-data $final_path
 
 # Copy config mopidy
 sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
 sudo mkdir /root/.config/mopidy
+# File required for command line 'mopidy local scan'
 sudo cp ../conf/mopidy.conf /root/.config/mopidy/
 
 # Running Mopidy as a service
@@ -100,9 +105,9 @@ sudo systemctl enable mopidy
 sudo systemctl restart mopidy
 sudo systemctl status mopidy
 
-# Delete directory and file 
-# Mopidy create this directory afer install
-# but this files create a confli with a mopidy configuration
+# Delete directory and file mopidy configuration
+# Mopidy create this directory after install
+# but this files create a conflit with a mopidy configuration.
 sudo rm -fr /root/.cache/mopidy
 sudo rm -fr /root/.config/mopidy
 sudo rm -fr /root/.local/share/mopidy
