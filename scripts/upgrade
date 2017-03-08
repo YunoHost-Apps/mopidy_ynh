@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Exit on command errors and treat unset variables as an error
+set -eu
+
+source .fonctions	# Loads the generic functions usually used in the script
+source /usr/share/yunohost/helpers # Source YunoHost helpers
+
+# See comments in install script
+app=$YNH_APP_INSTANCE_NAME
+
+# Retrieve app settings
+domain=$(ynh_app_setting_get "$app" domain)
+path=$(ynh_app_setting_get "$app" path)
+admin=$(ynh_app_setting_get "$app" admin)
+
+CHECK_PATH	# Checks and corrects the syntax of the path.
+
+# Check if admin is not null
+if [[ "$admin" = "" ]]; then
+    echo "Unable to upgrade, please contact support"
+    ynh_die
+fi
+
+final_path=/var/www/$app
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@__PATHTOCHANGE__@$app@g" ../conf/nginx.conf*
+sed -i "s@__FINALPATH__@$final_path/@g" ../conf/nginx.conf*
+sed -i "s@__DOMAINNAME__@$domain/@g" ../conf/nginx.conf*
+
+# Reload Nginx
+sudo service nginx reload
