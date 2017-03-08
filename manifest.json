@@ -53,7 +53,7 @@
 			{
 				"name": "spotify_user",
 				"type": "user",
-				"optional": "True",
+				"optional": "False",
 				"ask": {
 					"en": "User Spotify (Optional field)",
 					"fr": "Utilisateur Spotify (Champs optionnel)"
