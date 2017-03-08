@@ -18,6 +18,10 @@ Pour récupérer vos clés pour Spotify et Soundcloud :
 
 Insérer les clés d'authentifications lors de l'installation de l'application.
 
+### Vérifier que le sons fonctionne
+
+Depuis l'interface web, aller dans "Browse" > "File" > "Media". Sur cette page vous avez un morceau qui est importé dans l'application lors de l'installation. Ce titre se nomme "Tryad Beauty", ce morceau est libre de droit. 
+
 ### Problème pouvant survenir
 
 Il se peut que vous n'ayez pas de son, je vous invite à vous renseigner sur [la documentation de de Mopidy](https://docs.mopidy.com/en/latest/audio/).
@@ -43,6 +47,10 @@ To retrieve your keys for Spotify and Soundcloud:
 [Mopidy Authentication with Online Services] (https://www.mopidy.com/authenticate/)
 
 Insert authentication keys when installing the application.
+
+### Check that the sounds are working
+
+From the web interface, go to "Browse"> "File"> "Media". On this page you have a song that is imported into the application during installation. This title is called "Tryad Beauty", this piece is free of rights.
 
 ### Troubleshooting
 

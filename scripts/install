@@ -98,6 +98,8 @@ sudo cp ../conf/mopidy.conf /usr/share/mopidy/conf.d/
 sudo mkdir /root/.config/mopidy
 # File required for command line 'mopidy local scan'
 sudo cp ../conf/mopidy.conf /root/.config/mopidy/
+# Copy music file for the test
+sudo cp ../conf/Tryad_Beauty.mp3 /var/lib/mopidy/media
 
 # Running Mopidy as a service
 sudo mopidy local scan
