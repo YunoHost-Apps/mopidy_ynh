@@ -58,6 +58,8 @@ sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessi
 # Install Mopidy and all dependencies:
 sudo apt-get update
 sudo apt-get install -y mopidy
+sudo apt-get install -y mopidy-soundcloud
+sudo apt-get install -y mopidy-spotify
 
 # Copy configuration
 ip_local=$(hostname -I | awk '{ print $1 }')
@@ -111,6 +113,13 @@ sudo cp ../conf/Tryad_Beauty.mp3 /var/lib/mopidy/media
 # Running Mopidy as a service
 sudo mopidy local scan
 sudo systemctl enable mopidy
+sudo systemctl restart mopidy
+sudo systemctl status mopidy
+
+# Copy library.json 
+sudo cp /root/.local/share/mopidy/local/library.json.gz /var/lib/mopidy/local/
+
+# Running Mopidy again
 sudo systemctl restart mopidy
 sudo systemctl status mopidy
 
