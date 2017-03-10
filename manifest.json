@@ -18,7 +18,8 @@
 	},
 	"multi_instance": true,
 	"services": [
-		"python"
+		"nginx",
+		"mopidy"
 	],
 	"arguments": {
 		"install" : [
