@@ -3,7 +3,8 @@
     ; Manifest
         domain="domain.tld" (DOMAIN)
         path="/path"    (PATH)
-        admin="john"    (USER)
+        admin_mopidy="john"    (USER)
+        spotify_pass="pass" (PASSWORD)
         language="fr_FR"
         multisite="No"
         is_public="Yes" (PUBLIC|public=Yes|private=No)
