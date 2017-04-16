@@ -92,12 +92,6 @@ sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
 
 # Change file configuration for nginx
 sudo sed -i "s@__PATHTOCHANGE__@$path@g" /etc/nginx/conf.d/$domain.d/$app.conf
-sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
-sudo sed -i "s@__FINALPATH__@$final_path@g" /etc/nginx/conf.d/$domain.d/$app.conf
-
-# Install index.html but it's not necessary
-sudo cp ../conf/index.html $final_path
-sudo sed -i "s@__DOMAINNAME__@$domain@g" /etc/nginx/conf.d/$domain.d/$app.conf
 
 # Check permission for $final_path
 sudo chown -R www-data $final_path
