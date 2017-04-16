@@ -136,18 +136,17 @@ sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
 cd mopidy-musicbox-webclient
 sudo python setup.py install
 
-# Allow port 
-sudo yunohost firewall allow TCP 6600
-sudo yunohost firewall allow TCP 6680
-
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
 
-# Reload Nginx and regenerate SSOwat conf
-sudo service nginx reload
+# Reload Nginx
+sudo systemctl reload nginx
 
 # Add Mopidy into YunoHost services
 sudo yunohost service add mopidy --log "/var/log/mopidy/mopidy.log"
+
+# Add logrotate
+ynh_use_logrotate
 
 # Reload SSOwat configuration
 sudo yunohost app ssowatconf

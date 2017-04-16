@@ -40,13 +40,15 @@ SECURE_REMOVE '/tmp/$app-musicbox-webclient'
 SECURE_REMOVE '/var/www/$app'
 sudo rm -fr '/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg'
 
-# disallow firewall port
-sudo yunohost firewall disallow TCP 6600
-sudo yunohost firewall disallow TCP 6680
-
 REMOVE_NGINX_CONF	# Suppression de la configuration nginx
+
+# remove logrotate
+ynh_remove_logrotate
 
 # Régénère la configuration de SSOwat
 sudo yunohost app ssowatconf
+
+# reload nginx
+sudo systemctl reload nginx
 
 echo -e "\e[0m"	# Restore normal color

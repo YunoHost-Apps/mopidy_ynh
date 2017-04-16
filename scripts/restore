@@ -55,5 +55,4 @@ sudo service mopidy restart
 sudo yunohost service add mopidy --log "/var/log/mopidy/mopidy.log"
 
 # Reload services
-sudo service php5-fpm reload || true
-sudo service nginx reload || true
+sudo systemctl reload nginx
