@@ -82,13 +82,6 @@ REMOVE_FPM_CONF () {	# Suppression de la configuration du pool php-fpm
 	sudo service php5-fpm reload
 }
 
-REMOVE_LOGROTATE_CONF () {	# Suppression de la configuration de logrotate
-	if [ -e "/etc/logrotate.d/$app" ]; then
-		echo "Delete logrotate config"
-		sudo rm "/etc/logrotate.d/$app"
-	fi
-}
-
 SECURE_REMOVE () {      # Suppression de dossier avec vérification des variables
 	chaine="$1"	# L'argument doit être donné entre quotes simple '', pour éviter d'interpréter les variables.
 	no_var=0
@@ -171,6 +164,7 @@ EOF
 	sudo mkdir -p $(dirname "$logfile")	# Create the log directory, if not exist
 	cat ${app}-logrotate | sudo tee -a /etc/logrotate.d/$app > /dev/null	# Append this config to the others for this app. If a config file already exist
 }
+
 
 # Remove the app's logrotate config.
 #

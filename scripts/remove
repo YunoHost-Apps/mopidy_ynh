@@ -19,23 +19,22 @@ sudo apt-get remove --purge -y mopidy-spotify
 
 # Delete stupid file
 # Normally a root directory is delete with install app
-if [ -d "/root/.config/$app" ]; then
-	SECURE_REMOVE '/root/.config/$app'
-fi
-if [ -d "/root/.cache/$app" ]; then
-	SECURE_REMOVE '/root/.cache/$app'
-fi
-if [ -d "/root/.local/share/$app" ]; then
-	SECURE_REMOVE '/root/.local/share/$app'
-fi
-
+SECURE_REMOVE '/root/.config/$app'
+SECURE_REMOVE '/root/.cache/$app'
+SECURE_REMOVE '/root/.local/share/$app'
 SECURE_REMOVE '/usr/local/bin/$app'
 SECURE_REMOVE '/usr/share/$app'
 SECURE_REMOVE '/var/lib/$app'
 SECURE_REMOVE '/etc/apt/sources.list.d/$app.list'
 SECURE_REMOVE '/opt/$app-musicbox-webclient'
 SECURE_REMOVE '/var/www/$app'
-sudo rm -fr '/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg'
+SECURE_REMOVE '/var/log/$app'
+if [ -e "/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg" ]; then
+	sudo rm -fr '/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg'
+fi
+if [ -e "/etc/apt/sources.list.d/mopidy.list" ]; then
+	sudo rm -fr '/etc/apt/sources.list.d/mopidy.list'
+fi
 
 REMOVE_NGINX_CONF	# Suppression de la configuration nginx
 

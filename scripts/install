@@ -113,6 +113,7 @@ sudo systemctl status mopidy
 
 # Copy library.json 
 sudo cp /root/.local/share/mopidy/local/library.json.gz /var/lib/mopidy/local/
+sudo chown $app:audio /var/lib/mopidy/local/library.json.gz
 
 # Running Mopidy again
 sudo systemctl restart mopidy
@@ -130,6 +131,9 @@ pushd /opt
 sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
 pushd mopidy-musicbox-webclient
 sudo python setup.py install
+
+# Go to script install directory
+pushd /var/cache/yunohost/from_file/scripts
 
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
