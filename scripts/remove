@@ -16,9 +16,6 @@ domain=$(ynh_app_setting_get $app domain)
 sudo apt-get remove --purge -y mopidy
 sudo apt-get remove --purge -y mopidy-soundcloud
 sudo apt-get remove --purge -y mopidy-spotify
-sleep 4
-sudo pip uninstall -y mopidy_musicbox_webclient
-sleep 4
 
 # Delete stupid file
 # Normally a root directory is delete with install app
