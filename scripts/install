@@ -125,9 +125,9 @@ sudo rm -fr /root/.config/mopidy
 sudo rm -fr /root/.local/share/mopidy
 
 ## Install mopidy-musicbox-webclient
-cd /tmp/
+pushd /opt
 sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
-cd mopidy-musicbox-webclient
+pushd mopidy-musicbox-webclient
 sudo python setup.py install
 
 # Access public for curl
