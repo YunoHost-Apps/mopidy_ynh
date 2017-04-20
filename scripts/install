@@ -141,7 +141,7 @@ sudo systemctl reload nginx
 sudo yunohost service add mopidy --log "/var/log/${app}/mopidy.log"
 
 # Add logrotate
-ynh_use_logrotate $app
+ynh_use_logrotate
 
 # Reload SSOwat configuration
 sudo yunohost app ssowatconf
