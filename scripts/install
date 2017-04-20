@@ -138,10 +138,10 @@ ynh_app_setting_set $app unprotected_uris "/"
 sudo systemctl reload nginx
 
 # Add Mopidy into YunoHost services
-sudo yunohost service add mopidy --log "/var/log/mopidy/mopidy.log"
+sudo yunohost service add mopidy --log "/var/log/${app}/mopidy.log"
 
 # Add logrotate
-ynh_use_logrotate
+ynh_use_logrotate $app
 
 # Reload SSOwat configuration
 sudo yunohost app ssowatconf
