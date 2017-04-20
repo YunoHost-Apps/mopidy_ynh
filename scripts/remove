@@ -36,7 +36,7 @@ SECURE_REMOVE '/usr/local/bin/$app'
 SECURE_REMOVE '/usr/share/$app'
 SECURE_REMOVE '/var/lib/$app'
 SECURE_REMOVE '/etc/apt/sources.list.d/$app.list'
-SECURE_REMOVE '/tmp/$app-musicbox-webclient'
+SECURE_REMOVE '/opt/$app-musicbox-webclient'
 SECURE_REMOVE '/var/www/$app'
 sudo rm -fr '/usr/local/lib/python2.7/dist-packages/Mopidy_MusicBox_Webclient-2.3.0-py2.7.egg'
 
