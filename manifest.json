@@ -16,7 +16,7 @@
 	"requirements": {
 		"yunohost": ">> 2.4.0"
 	},
-	"multi_instance": true,
+	"multi_instance": "true",
 	"services": [
 		"nginx"
 	],
@@ -52,7 +52,7 @@
 			},
 			{
 				"name": "spotify_user",
-				"optional": "True",
+				"optional": "true",
 				"ask": {
 					"en": "User Spotify (Optional field)",
 					"fr": "Utilisateur Spotify (Champs optionnel)"
@@ -62,7 +62,7 @@
 			{
 				"name": "spotify_pass",
 				"type": "password",
-				"optional": true,
+				"optional": "true",
 				"ask": {
 					"en": "Password Spotify (Optional field)",
 					"fr": "Mot de passe Spotify (Champs optionnel)"
@@ -72,7 +72,7 @@
 			{
 				"name": "spotify_id",
 				"type": "id",
-				"optional": true,
+				"optional": "true",
 				"ask": {
 					"en": "Client ID Spotify (Optional field)",
 					"fr": "ID client Spotify (Champs optionnel)"
@@ -81,7 +81,7 @@
 			{
 				"name": "spotify_id_secret",
 				"type": "id",
-				"optional": true,
+				"optional": "true",
 				"ask": {
 					"en": "Client secret ID Spotify (Optional field)",
 					"fr": "ID client secret Spotify (Champs optionnel)"
@@ -90,7 +90,7 @@
 			{
 				"name": "soundcloud_id",
 				"type": "id",
-				"optional": true,
+				"optional": "true",
 				"ask": {
 					"en": "Soundcloud ID (Optional field)",
 					"fr": "ID Soundcloud (Champs optionnel)"
