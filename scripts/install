@@ -133,7 +133,7 @@ pushd mopidy-musicbox-webclient
 sudo python setup.py install
 
 # Go to script install directory
-pushd /var/cache/yunohost/from_file/scripts
+pushd /var/cache/yunohost/from_file
 
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
