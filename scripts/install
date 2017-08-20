@@ -129,11 +129,9 @@ SECURE_REMOVE '/root/.local/share/$app'
 # Install mopidy-musicbox-webclient
 pushd /opt
 sudo git clone https://github.com/pimusicbox/mopidy-musicbox-webclient
-pushd mopidy-musicbox-webclient
+cd mopidy-musicbox-webclient
 sudo python setup.py install
-
-# Go to script install directory
-pushd /var/cache/yunohost/from_file
+popd
 
 # Access public for curl
 ynh_app_setting_set $app unprotected_uris "/"
