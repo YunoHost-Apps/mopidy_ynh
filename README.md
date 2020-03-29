@@ -1,5 +1,7 @@
 # Mopidy for YunoHost
 
+[![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+
 ## Mopidy c'est quoi ?
 
 Mopidy - est un serveur de musique extensible écrit en Python
