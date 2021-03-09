@@ -39,8 +39,6 @@ This installation is shipped with various extensions:
 
 * [Soundcloud](https://pypi.org/project/Mopidy-SoundCloud/) to play music from the [SoundCloud](https://soundcloud.com/) service \([authentication token](https://pypi.org/project/Mopidy-SoundCloud/) needed\).
 
-* [Raspberry-GPIO](https://mopidy.com/ext/raspberry-gpio/) to control Mopidy from GPIO signals on a Raspberry Pi (only available an ARM-architectures).
-
 ## Documentation
 
  * Official documentation: https://docs.mopidy.com/en/latest/
