@@ -54,11 +54,11 @@ myynh_install() {
 #	ynh_script_progression --message="Installing Mopidy-Spotify..." --time --weight=1
 #	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Spotify   Spotify Lib currently not available!!
 
-	if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
-  	    then
-    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --time --weight=1
-	    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
-  	fi
+#	if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
+#  	    then
+#    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --time --weight=1
+#	    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
+#  	fi
 	
 	
 #	set +o nounset
