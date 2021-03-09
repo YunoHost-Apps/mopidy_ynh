@@ -51,10 +51,6 @@ ynh_webpath_available $domain "/mopidy"\
 ynh_webpath_available $domain "/local"\
 	|| ynh_die --message="Path not available: ${domain}/local"
 
-# Register (book) web path
-ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
-
-
 #=================================================
 # STANDARD RESTORATION STEPS
 #=================================================

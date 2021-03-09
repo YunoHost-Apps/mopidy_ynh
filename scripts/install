@@ -40,16 +40,6 @@ ynh_script_progression --message="Validating installation parameters..." --time 
 
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
-# Check web path availability
-ynh_webpath_available $domain $path_url\
-	|| ynh_die --message="Path not available: ${domain}${path_url}"
-ynh_webpath_available $domain "/musicbox_webclient"\
-	|| ynh_die --message="Path not available: ${domain}/musicbox_webclient"
-ynh_webpath_available $domain "/mopidy"\
-	|| ynh_die --message="Path not available: ${domain}/mopidy"
-ynh_webpath_available $domain "/local"\
-	|| ynh_die --message="Path not available: ${domain}/local"
-
 # Register (book) web path
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
@@ -187,7 +177,7 @@ fi
 
 ynh_permission_url --permission="main" --add_url="$domain/mopidy/ws"
 ynh_permission_url --permission="main" --add_url="$domain/musicbox_webclient"
-#ynh_permission_url --permission="main" --add_url="$domain/local"
+ynh_permission_url --permission="main" --add_url="$domain/local"
 
 #=================================================
 # RELOAD NGINX
