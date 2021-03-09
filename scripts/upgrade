@@ -145,10 +145,10 @@ ynh_backup_if_checksum_is_different --file="$conf_file"
 
 
 cp ../conf/app.conf "$conf_file"
-if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
-    then
-    cat ../conf/raspberry.conf >> "$conf_file"
-fi
+#if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
+#    then
+#    cat ../conf/raspberry.conf >> "$conf_file"
+#fi
 
 ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
 ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
