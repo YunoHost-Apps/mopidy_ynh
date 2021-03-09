@@ -1,0 +1,16 @@
+#EXTM3U
+#RADIOBROWSERUUID:b10a6f62-9fb8-11e8-a767-52543be04c81
+#EXTINF:1,bbc world service
+http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws
+
+#RADIOBROWSERUUID:242a99da-f2af-11e9-a96c-52543be04c81
+#EXTINF:1,A23  FRANCE. INTER
+http://direct.franceinter.fr/live/franceinter-midfi.mp3
+
+#RADIOBROWSERUUID:2367e7e2-d3f2-11e9-a861-52543be04c81
+#EXTINF:1,Radio Nacional de España RNE 1
+http://rne.rtveradio.cires21.com/rne_hc.mp3
+
+#RADIOBROWSERUUID:bb91a2bb-8df9-11e9-a6c6-52543be04c81
+#EXTINF:1,Deutschlandfunk
+http://st01.dlf.de/dlf/01/64/mp3/stream.mp3

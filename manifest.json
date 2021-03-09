@@ -6,7 +6,7 @@
 		"en": "Mopidy - is an extensible music server written in Python.",
 		"fr": "Mopidy - est un serveur de musique extensible écrit en Python"
 	},
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"url": "https://www.mopidy.com/",
 	"license": "free",
 	"maintainer": {
@@ -14,9 +14,9 @@
 		"email": "cyp@rouquin.me"
 	},
 	"requirements": {
-		"yunohost": ">> 2.4.0"
+		"yunohost": ">= 4.0.8"
 	},
-	"multi_instance": true,
+	"multi_instance": false,
 	"services": [
 		"nginx"
 	],
@@ -42,59 +42,13 @@
 				"default": "/mopidy"
 			},
 			{
-				"name": "admin_mopidy",
-				"type": "user",
+				"name": "is_public",
+				"type": "boolean",
 				"ask": {
-					"en": "Choose the Mopidy administrator (must be an existing YunoHost user)",
-					"fr": "Administrateur de Mopidy (doit être un utilisateur YunoHost existant)"
+					"en": "Is it a public application?",
+					"fr": "Est-ce une application publique ?"
 				},
-				"example": "johndoe"
-			},
-			{
-				"name": "spotify_user",
-				"optional": true,
-				"ask": {
-					"en": "User Spotify (Optional field)",
-					"fr": "Utilisateur Spotify (Champs optionnel)"
-				},
-				"example": "johndoe"
-			},
-			{
-				"name": "spotify_pass",
-				"type": "password",
-				"optional": true,
-				"ask": {
-					"en": "Password Spotify (Optional field)",
-					"fr": "Mot de passe Spotify (Champs optionnel)"
-				},
-				"example": "myreallystrengthpassword"
-			},
-			{
-				"name": "spotify_id",
-				"type": "id",
-				"optional": true,
-				"ask": {
-					"en": "Client ID Spotify (Optional field)",
-					"fr": "ID client Spotify (Champs optionnel)"
-				}
-			},
-			{
-				"name": "spotify_id_secret",
-				"type": "id",
-				"optional": true,
-				"ask": {
-					"en": "Client secret ID Spotify (Optional field)",
-					"fr": "ID client secret Spotify (Champs optionnel)"
-				}
-			},
-			{
-				"name": "soundcloud_id",
-				"type": "id",
-				"optional": true,
-				"ask": {
-					"en": "Soundcloud ID (Optional field)",
-					"fr": "ID Soundcloud (Champs optionnel)"
-				}
+				"default": true
 			}
 		]
 	}

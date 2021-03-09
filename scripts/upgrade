@@ -1,33 +1,214 @@
 #!/bin/bash
 
-# Exit on command errors and treat unset variables as an error
-set -eu
+#=================================================
+# GENERIC START
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
 
-source .fonctions	# Loads the generic functions usually used in the script
-source /usr/share/yunohost/helpers # Source YunoHost helpers
+source _common.sh
+source /usr/share/yunohost/helpers
 
-# See comments in install script
+#=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_script_progression --message="Loading installation settings..." --time --weight=1
+
 app=$YNH_APP_INSTANCE_NAME
 
-# Retrieve app settings
-domain=$(ynh_app_setting_get "$app" domain)
-path=$(ynh_app_setting_get "$app" path)
-admin=$(ynh_app_setting_get "$app" admin)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+path_url=$(ynh_app_setting_get --app=$app --key=path)
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+port=$(ynh_app_setting_get --app=$app --key=port)
 
-CHECK_PATH	# Checks and corrects the syntax of the path.
+# other variables
+media_dir="/home/yunohost.multimedia/share/Music"
+work_dir="/home/yunohost.app/$app"
+conf_file="$final_path/$app.conf"
+cmd_file="/usr/local/bin/mopidyctl"
 
-# Check if admin is not null
-if [[ "$admin" = "" ]]; then
-    echo "Unable to upgrade, please contact support"
-    ynh_die
+
+#=================================================
+# CHECK VERSION
+#=================================================
+
+### This helper will compare the version of the currently installed app and the version of the upstream package.
+### $upgrade_type can have 2 different values
+### - UPGRADE_APP if the upstream app version has changed
+### - UPGRADE_PACKAGE if only the YunoHost package has changed
+### ynh_check_app_version_changed will stop the upgrade if the app is up to date.
+### UPGRADE_APP should be used to upgrade the core app only if there's an upgrade to do.
+upgrade_type=$(ynh_check_app_version_changed)
+
+#=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..." --time --weight=1
+
+#
+# N.B. : the followings setting migrations snippets are provided as *EXAMPLES*
+# of what you may want to do in some cases (e.g. a setting was not defined on
+# some legacy installs and you therefore want to initiaze stuff during upgrade)
+#
+
+# If db_name doesn't exist, create it
+#if [ -z "$db_name" ]; then
+#	db_name=$(ynh_sanitize_dbid --db_name=$app)
+#	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+#fi
+
+# If final_path doesn't exist, create it
+#if [ -z "$final_path" ]; then
+#	final_path=/var/www/$app
+#	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+#fi
+
+### If nobody installed your app before 4.1,
+### then you may safely remove these lines
+
+#=================================================
+# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
+#=================================================
+ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --time --weight=1
+
+# Backup the current version of the app
+ynh_backup_before_upgrade
+ynh_clean_setup () {
+	# Restore it if the upgrade fails
+	ynh_restore_upgradebackup
+}
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
+
+#=================================================
+# STANDARD UPGRADE STEPS
+#=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Stopping a systemd service..." --time --weight=1
+
+ynh_systemd_action --service_name=$app --action="stop"
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+
+# siwi: to be checked
+
+if [ "$upgrade_type" == "UPGRADE_APP" ]
+then
+	myynh_install
 fi
 
-final_path=/var/www/$app
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Upgrading NGINX web server configuration..." --time --weight=1
 
-# Modify Nginx configuration file and copy it to Nginx conf directory
-sed -i "s@__PATHTOCHANGE__@$app@g" ../conf/nginx.conf*
-sed -i "s@__FINALPATH__@$final_path/@g" ../conf/nginx.conf*
-sed -i "s@__DOMAINNAME__@$domain/@g" ../conf/nginx.conf*
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
-# Reload Nginx
-sudo systemctl reload nginx
+#=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --time --weight=1
+
+ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..." --time --weight=1
+
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell
+
+#=================================================
+# SPECIFIC UPGRADE
+#=================================================
+# SETUP SYSTEMD
+#=================================================
+ynh_script_progression --message="Upgrading systemd configuration..." --time --weight=1
+
+# Create a dedicated systemd config
+start_file="$final_path/env/bin/$app"
+ynh_add_systemd_config --others_var="conf_file start_file"     # substitute __CONF_FILE__ by $conf_file
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+#siwi : to be checked
+
+### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
+### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
+ynh_backup_if_checksum_is_different --file="$conf_file"
+
+
+cp ../conf/app.conf "$conf_file"
+if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
+    then
+    cat ../conf/raspberry.conf >> "$conf_file"
+fi
+
+ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
+ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
+ynh_replace_string --match_string="__CACHE_DIR__" --replace_string=$work_dir/cache --target_file="$conf_file"
+ynh_replace_string --match_string="__DATA_DIR__"  --replace_string=$work_dir/data  --target_file="$conf_file"
+
+# Recalculate and store the checksum of the file for the next upgrade.
+ynh_store_file_checksum --file="$conf_file"
+
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
+# SECURE FILES AND DIRECTORIES
+#=================================================
+# siwi : to be checked
+
+# Set permissions on app files
+chown -R root: $final_path
+
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+
+yunohost service add $app --log_type systemd --description "this is mopidy, a music server"
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+
+ynh_systemd_action --service_name=$app --action="start"
+
+#=================================================
+# RELOAD NGINX
+#=================================================
+ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
+
+ynh_systemd_action --service_name=nginx --action=reload
+
+#=================================================
+# PROVIDE ADDITIONAL SHELL COMAND 
+#=================================================
+ynh_script_progression --message="Provide additional shell comand..." --time --weight=1
+
+cp -a ../sources/extra_files/mopidyctl "$cmd_file"
+ynh_replace_string --match_string="__APP__"         --replace_string=$app        --target_file="$cmd_file"
+ynh_replace_string --match_string="__FINAL_PATH__"  --replace_string=$final_path --target_file="$cmd_file"
+ynh_replace_string --match_string="__CONF_FILE__"   --replace_string=$conf_file  --target_file="$cmd_file"
+
+chmod +x "$cmd_file"
+
+#=================================================
+# SCAN LOCAL MEDIA DIRECTORY
+#=================================================
+ynh_script_progression --message="Scan local media directory..." --weight=1
+
+"$cmd_file" local scan
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Upgrade of $app completed" --time --last

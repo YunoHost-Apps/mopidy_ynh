@@ -1,22 +1,73 @@
 #!/bin/bash
 
-# Exit on command errors and treat unset variables as an error
-set -eu
+#=================================================
+# GENERIC START
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
 
-# Get multi-instances specific variables
-app=$YNH_APP_INSTANCE_NAME
-
-# Source app helpers
+# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
+source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
-# Retrieve app settings
-domain=$(ynh_app_setting_get "$app" domain)
+#=================================================
+# MANAGE SCRIPT FAILURE
+#=================================================
 
-# Copy the app files
-final_path="/opt/${app}"
-ynh_backup "$final_path" "sources" 1
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
 
-# Copy the nginx conf files
-ynh_backup "/etc/nginx/conf.d/${domain}.d/${app}.conf" "nginx.conf"
-# Copy service
-ynh_backup "/etc/systemd/system/${app}.service" "systemd_${app}.service"
+#=================================================
+# LOAD SETTINGS
+#=================================================
+ynh_print_info --message="Loading installation settings..."
+
+app=$YNH_APP_INSTANCE_NAME
+
+final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
+work_dir=$(ynh_app_setting_get --app=$app --key=work_dir)
+
+# other variables
+media_dir="/home/yunohost.multimedia/share/Music"
+work_dir="/home/yunohost.app/$app"
+cmd_file="/usr/local/bin/mopidyctl"
+
+#=================================================
+# DECLARE DATA AND CONF FILES TO BACKUP
+#=================================================
+ynh_print_info --message="Declaring files to be backed up..."
+
+#=================================================
+# BACKUP THE APP MAIN DIR
+#=================================================
+
+ynh_backup --src_path="$final_path"
+
+#=================================================
+# BACKUP THE NGINX CONFIGURATION
+#=================================================
+
+ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+
+#=================================================
+# SPECIFIC BACKUP
+#=================================================
+# BACKUP SYSTEMD
+#=================================================
+
+ynh_backup --src_path="/etc/systemd/system/$app.service"
+
+#=================================================
+# BACKUP VARIOUS FILES
+#=================================================
+
+ynh_backup --src_path=$work_dir
+
+ynh_backup --src_path="$cmd_file"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_print_info --message="Backup script completed for $app. (YunoHost will then actually copy those files to the archive)."
