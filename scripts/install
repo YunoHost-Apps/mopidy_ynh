@@ -67,7 +67,7 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --time --weight=1
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE DEDICATED USER
@@ -93,7 +93,6 @@ ynh_script_progression --message="Configuring NGINX web server..." --time --weig
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-
 
 #=================================================
 # SPECIFIC SETUP
@@ -226,4 +225,4 @@ ynh_script_progression --message="Scan local media directory..." --weight=1
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --time --last
+ynh_script_progression --message="Installation of $app completed" --last
