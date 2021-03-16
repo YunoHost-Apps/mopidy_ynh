@@ -166,7 +166,8 @@ chown -R root: $final_path
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
 
-yunohost service add $app --log_type systemd --description "this is mopidy, a music server"
+yunohost service add $app --description "this is mopidy, a music server" --log="/var/log/$app/$app.log"
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
