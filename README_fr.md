@@ -1,7 +1,7 @@
 # Mopidy pour YunoHost
 
 [![Niveau d'intégration](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
-[![Installer mopidy avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
+[![Installer Mopidy avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
 *[Read this readme in english.](./README.md)* 
 
@@ -9,25 +9,30 @@
 Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
 
 ## Vue d'ensemble
-Description rapide de cette application.
+Mopidy - est un serveur de musique extensible. Il lit de la musique, des podcasts et des programmes de radio à partir d'un disque local et de divers services de streaming. Vous modifiez la liste de lecture à partir de n'importe quel téléphone, tablette ou ordinateur.
 
-**Version incluse :** 1.0
+**Version incluse :** 3.1.1
 
 ## Captures d'écran
 
-![](Lien vers une capture d'écran de cette application.)
-
-## Démo
-
-* [Démo officielle](Lien vers un site de démonstration de cette application.)
+![](sources/extra_files/mopidy_screenshot1.png)
 
 ## Configuration
 
-Comment configurer cette application : via le panneau d'administration, un fichier brut en SSH ou tout autre moyen.
+Mopidy est livrée avec différentes extensions :
+
+* [MusicBox-Webclient](https://mopidy.com/ext/musicbox-webclient/) pour contrôler Mopidy depuis votre navigateur Web
+* [local](https://mopidy.com/ext/local/) pour rendre votre collection de musique privée sur `/home /yunohost.multimedia/share/Music/` consultable et consultable
+* [YouTube](https://pypi.org/project/Mopidy-YouTube/) pour lire le son de YouTube
+* [YTMusic](https://music.youtube.com/) pour accéder à la musique en streaming de Google intitulée [YouTube Music](https://music.youtube.com/)
+* [Podcast-iTunes](https://mopidy.com/ext/podcast-itunes/) pour rechercher et parcourir des podcasts sur l'iTunes Store d'Apple.
+* [RadioNet](https://mopidy.com/ext/radionet/) pour lire les canaux radio de [radio.net](https://www.radio.net/).
+* [Podcast](https://mopidy.com/ext/podcast/) pour parcourir les flux RSS des podcasts et diffuser les épisodes.
+* [SoundCloud](https://pypi.org/project/Mopidy-SoundCloud/) pour lire de la musique à partir du service [SoundCloud](https://soundcloud.com/)\([jeton d'authentification](https://pypi.org/project/Mopidy-SoundCloud/) nécessaire\). 
 
 ## Documentation
 
- * Documentation officielle : Lien vers la documentation officielle de cette application.
+ * Documentation officielle : https://docs.mopidy.com/en/latest/
  * Documentation YunoHost : Si une documentation spécifique est nécessaire, n'hésitez pas à contribuer.
 
 ## Caractéristiques spécifiques YunoHost
@@ -49,9 +54,6 @@ Comment configurer cette application : via le panneau d'administration, un fichi
 ## Informations additionnelles
 
 * Autres informations que vous souhaitez ajouter sur cette application.
-
-**Plus d'informations sur la page de documentation :**  
-https://yunohost.org/packaging_apps
 
 ## Liens
 
