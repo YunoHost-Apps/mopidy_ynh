@@ -36,7 +36,7 @@ cmd_file="/usr/local/bin/mopidyctl"
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
-ynh_script_progression --message="Validating installation parameters..." --time --weight=1
+ynh_script_progression --message="Validating installation parameters..." --weight=1
 
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
@@ -46,7 +46,7 @@ ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --time --weight=1
+ynh_script_progression --message="Storing installation settings..." --weight=2
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
@@ -56,7 +56,7 @@ ynh_app_setting_set --app=$app --key=path --value=$path_url
 #=================================================
 # FIND AND OPEN A PORT
 #=================================================
-ynh_script_progression --message="Finding an available port..." --time --weight=1
+ynh_script_progression --message="Finding an available port..." --weight=2
 
 # Find an available port
 port=$(ynh_find_port --port=6680)
@@ -65,7 +65,7 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --time --weight=1
+ynh_script_progression --message="Installing dependencies..." --weight=1
 
 ynh_install_app_dependencies $pkg_dependencies
 
@@ -191,9 +191,9 @@ ynh_systemd_action --service_name=nginx --action=reload
 ynh_script_progression --message="Provide additional shell comand..." --time --weight=1
 
 cp -a ../sources/extra_files/mopidyctl "$cmd_file"
-ynh_replace_string --match_string="__APP__"         --replace_string=$app        --target_file="$cmd_file"
-ynh_replace_string --match_string="__FINAL_PATH__"  --replace_string=$final_path --target_file="$cmd_file"
-ynh_replace_string --match_string="__CONF_FILE__"   --replace_string=$conf_file  --target_file="$cmd_file"
+ynh_replace_string --match_string="__APP__"        --replace_string=$app        --target_file="$cmd_file"
+ynh_replace_string --match_string="__FINAL_PATH__" --replace_string=$final_path --target_file="$cmd_file"
+ynh_replace_string --match_string="__CONF_FILE__"  --replace_string=$conf_file  --target_file="$cmd_file"
 
 chmod +x "$cmd_file"
 
