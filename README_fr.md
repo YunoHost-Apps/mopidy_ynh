@@ -53,7 +53,10 @@ Mopidy est livrée avec différentes extensions :
 
 ## Informations additionnelles
 
-* Autres informations que vous souhaitez ajouter sur cette application.
+Pour lister les paramètres actuels, entrez `sudo mopidyctl config` \
+Modifiez le fichier `/opt/yunohost/mopidy/mopidy.conf` pour ajuster la configuration de mopidy. \\
+
+Pour reconstruire la base de données de votre collection de musique locale, entrez `sudo mopidyctl local scan`
 
 ## Liens
 
