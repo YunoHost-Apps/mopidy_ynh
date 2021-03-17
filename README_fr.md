@@ -58,13 +58,9 @@ Cette installation est livrée avec différentes extensions:
 
 ## Informations additionnelles
 
-
-To list current settings enter `sudo mopidyctl config` \
-Edit the file `/opt/yunohost/mopidy/mopidy.conf` to adjust mopidy's configuration.\\
-
-To rebuild the database of your local music collection enter `sudo mopidyctl local scan`
-
-* Autres informations que vous souhaitez ajouter sur cette application.
+* Pour lister les paramètres actuels, entrez  `sudo mopidyctl config`
+* Modifiez le fichier /opt/yunohost/mopidy/mopidy.conf pour ajuster la configuration de mopidy
+* Pour reconstruire la base de données de votre collection de musique locale, entrez `sudo mopidyctl local scan`
 
 **Plus d'informations sur la page de documentation :**  
 https://yunohost.org/packaging_apps
