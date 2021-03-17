@@ -21,7 +21,7 @@ Vous pouvez modifier la liste de lecture à partir d'un téléphone, d'une table
 
 ## Démo
 
-* [Démo officielle](Lien vers un site de démonstration de cette application.)
+* Aucune démo disponible
 
 ## Configuration
 
@@ -67,9 +67,8 @@ https://yunohost.org/packaging_apps
 
 ## Liens
 
- * Signaler un bug : https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/issues
- * Site de l'application : Lien vers le site officiel de cette application.
- * Dépôt de l'application principale : Lien vers le dépôt officiel de l'application principale.
+ * Signaler un bug : https://github.com/YunoHost-Apps/mopidy_ynh/issues
+ * Site de l'application : https://mopidy.com/
  * Site web YunoHost : https://yunohost.org/
 
 ---
@@ -77,11 +76,11 @@ https://yunohost.org/packaging_apps
 ## Informations pour les développeurs
 
 **Seulement si vous voulez utiliser une branche de test pour le codage, au lieu de fusionner directement dans la banche principale.**
-Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing).
+Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
 Pour essayer la branche testing, procédez comme suit.
 ```
-sudo yunohost app install https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug
 ou
-sudo yunohost app upgrade REPLACEBYYOURAPP -u https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing --debug
+sudo yunohost app upgrade REPLACEBYYOURAPP -u https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug
 ```
