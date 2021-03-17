@@ -39,24 +39,24 @@ myynh_install() {
 	
         ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
-	ynh_script_progression --message="Installing Mopidy-YouTube..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-YouTube..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.2
-	ynh_script_progression --message="Installing Mopidy-YTMusic..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-YTMusic..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YTMusic==0.2.2
-	ynh_script_progression --message="Installing Mopidy-RadioNet..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-RadioNet..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-RadioNet==0.2.2
-	ynh_script_progression --message="Installing Mopidy-Podcast..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-Podcast..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast==3.0.0
-	ynh_script_progression --message="Installing Mopidy-Podcast-iTunes..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-Podcast-iTunes..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.0
-	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --time --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --weight=1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud
-#	ynh_script_progression --message="Installing Mopidy-Spotify..." --time --weight=1
+#	ynh_script_progression --message="Installing Mopidy-Spotify..." --weight=1
 #	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Spotify   Spotify Lib currently not available!!
 
 #	if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
 #  	    then
-#    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --time --weight=1
+#    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --weight=1
 #	    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
 #  	fi
 	
