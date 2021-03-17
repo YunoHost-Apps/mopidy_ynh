@@ -16,7 +16,7 @@ pkg_dependencies="build-essential python3-dev python3-pip python3-venv git postg
 python_version="$(python3 -V | cut -d' ' -f2 | cut -d. -f1-2)"
 
 myynh_install() {
-    ynh_script_progression --message="Install / upgrade mopidy via pip..."  --time --weight=1
+    ynh_script_progression --message="Install / upgrade mopidy via pip..."  --weight=1
     python3 -m venv "${final_path}/env"
     chown -R "$app" "$final_path"
 
@@ -27,7 +27,7 @@ myynh_install() {
         set -o nounset
         ynh_exec_as $app $final_path/env/bin/pip install --upgrade --no-cache-dir pip
 
-        ynh_script_progression --message="Installing essentials..." --time --weight=1
+        ynh_script_progression --message="Installing essentials..." --weight=1
         
 	# to make Gstreamer visible in Python environment
         $final_path/env/bin/python3 -m pip install vext
