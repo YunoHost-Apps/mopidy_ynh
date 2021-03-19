@@ -8,8 +8,12 @@
 	},
 	"version": "1.0.2",
 	"url": "https://www.mopidy.com/",
-	"license": "free",
+	"license": "Apache-2.0",
 	"maintainer": {
+		"name": "siwinter",
+		"email": "siegfried.winter@arcor.de"
+	},
+	"previous_maintainer": {
 		"name": "cyp",
 		"email": "cyp@rouquin.me"
 	},
