@@ -3,8 +3,7 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "Mopidy - is an extensible music server written in Python.",
-		"fr": "Mopidy - est un serveur de musique extensible écrit en Python"
+		"en": "Mopidy - is an extensible music server written in Python."
 	},
 	"version": "1.0.2",
 	"url": "https://www.mopidy.com/",
