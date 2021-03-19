@@ -82,7 +82,7 @@ myynh_install() {
 # Install or update the main directory yunohost.multimedia
 # see https://github.com/YunoHost-Apps/yunohost.multimedia
 ynh_multimedia_build_main_dir () {
-    wget -nv https://github.com/maniackcrudelis/yunohost.multimedia/archive/master.zip
+    wget -nv https://github.com/maniackcrudelis/yunohost.multimedia/archive/master.zip 2>&1
     unzip master.zip
     sudo ./yunohost.multimedia-master/script/ynh_media_build.sh
 }
