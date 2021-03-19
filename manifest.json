@@ -33,10 +33,6 @@
 			{
 				"name": "path",
 				"type": "path",
-				"ask": {
-					"en": "Choose a path for Mopidy",
-					"fr": "Choisissez un chemin pour Mopidy"
-				},
 				"example": "/mopidy",
 				"default": "/mopidy"
 			},
