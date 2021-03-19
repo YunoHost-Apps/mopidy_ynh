@@ -16,7 +16,7 @@ pkg_dependencies="build-essential python3-dev python3-pip python3-venv git postg
 python_version="$(python3 -V | cut -d' ' -f2 | cut -d. -f1-2)"
 
 myynh_install() {
-    ynh_script_progression --message="Install / upgrade mopidy via pip..."  --time --weight=1
+    ynh_script_progression --message="Install / upgrade mopidy via pip..."  --weight=8
     python3 -m venv "${final_path}/env"
     chown -R "$app" "$final_path"
 
@@ -27,7 +27,7 @@ myynh_install() {
         set -o nounset
         ynh_exec_as $app $final_path/env/bin/pip install --upgrade --no-cache-dir pip
 
-        ynh_script_progression --message="Installing essentials..." --time --weight=1
+        ynh_script_progression --message="Installing essentials..." --weight=17
         
 	# to make Gstreamer visible in Python environment
         $final_path/env/bin/python3 -m pip install vext
@@ -39,17 +39,17 @@ myynh_install() {
 	
         ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
-	ynh_script_progression --message="Installing Mopidy-YouTube..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-YouTube..." --weight=7
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.2
-	ynh_script_progression --message="Installing Mopidy-YTMusic..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-YTMusic..." --weight=2
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YTMusic==0.2.2
-	ynh_script_progression --message="Installing Mopidy-RadioNet..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-RadioNet..."
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-RadioNet==0.2.2
-	ynh_script_progression --message="Installing Mopidy-Podcast..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-Podcast..."
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast==3.0.0
-	ynh_script_progression --message="Installing Mopidy-Podcast-iTunes..." --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-Podcast-iTunes..." --weight=2
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.0
-	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --time --time --weight=1
+	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --weight=6
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud
 #	ynh_script_progression --message="Installing Mopidy-Spotify..." --time --weight=1
 #	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Spotify   Spotify Lib currently not available!!
@@ -57,7 +57,7 @@ myynh_install() {
 #	if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
 #  	    then
 #    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --time --weight=1
-#	    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
+#	        ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
 #  	fi
 	
 	
@@ -82,7 +82,7 @@ myynh_install() {
 # Install or update the main directory yunohost.multimedia
 # see https://github.com/YunoHost-Apps/yunohost.multimedia
 ynh_multimedia_build_main_dir () {
-    wget -nv https://github.com/maniackcrudelis/yunohost.multimedia/archive/master.zip
+    wget -nv https://github.com/maniackcrudelis/yunohost.multimedia/archive/master.zip 2>&1
     unzip master.zip
     sudo ./yunohost.multimedia-master/script/ynh_media_build.sh
 }
