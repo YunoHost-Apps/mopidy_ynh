@@ -28,6 +28,10 @@
 			{
 				"name": "domain",
 				"type": "domain",
+                		"ask": {
+   					"en": "Choose a domain for Mopidy",
+                    			"fr": "Choisissez un domaine pour Mopidy"
+                			},
 				"example": "example.org"
 			},
 			{
