@@ -65,7 +65,7 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=40
+ynh_script_progression --message="Installing dependencies..." --weight=20
 
 ynh_install_app_dependencies $pkg_dependencies
 
