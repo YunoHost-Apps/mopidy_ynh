@@ -31,6 +31,9 @@
                 "ask": {
                     "en": "Choose a domain name for Mopidy"
                 },
+		"help": {
+		    "en": "public app can be used by anonymous visitors"
+		}
                 "example": "example.com"
             },
             {
