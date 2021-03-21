@@ -48,7 +48,7 @@
 				"ask": {
 					"en": "Is it a public application?"
 				},
-				"help": "en: public app can be used by anonymous visitors",				},
+				"help": "en: public app can be used by anonymous visitors",
 				"default": false
 			}
 		]
