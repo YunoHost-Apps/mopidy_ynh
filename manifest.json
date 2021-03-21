@@ -45,10 +45,10 @@
 			{
 				"name": "is_public",
 				"type": "boolean",
-				"help": "en: public app can be used by anonymous visitors",
-				"default": true
 				"ask": {
-					"en": "Is it a public application?"				},
+					"en": "Is it a public application?"
+				},
+				"help": "en: public app can be used by anonymous visitors",				},
 				"default": false
 			}
 		]
