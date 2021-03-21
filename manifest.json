@@ -28,17 +28,28 @@
             {
                 "name": "domain",
                 "type": "domain",
+                "ask": {
+                    "en": "Choose a domain name for Mopidy"
+                },
                 "example": "example.com"
             },
             {
                 "name": "path",
                 "type": "path",
+                "ask": {
+                    "en": "Choose a path for Mopidy",
+                    "fr": "Choisissez un chemin pour Mopidy"
+                },
                 "example": "/example",
                 "default": "/mopidy"
             },
             {
                 "name": "is_public",
                 "type": "boolean",
+                "ask": {
+                    "en": "Is it a public application?",
+                    "fr": "Est-ce une application publique ?"
+                },
 		"help": {
 		    "en": "public app can be used by anonymous visitors"
 		},
