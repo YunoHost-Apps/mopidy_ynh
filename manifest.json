@@ -3,7 +3,7 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "An extensible music server to play music, podcasts and radio programs from local disk and various streaming services"
+		"en": "An extensible music server to play music, podcasts and radio programs from local disk and various streaming services" 
 	},
 	"version": "3.1.1-ynh1",
 	"url": "https://www.mopidy.com/",
@@ -28,25 +28,23 @@
 			{
 				"name": "domain",
 				"type": "domain",
-                		"ask": {
-   					"en": "Choose a domain for Mopidy",
-                    			"fr": "Choisissez un domaine pour Mopidy"
-                			},
+        "ask": {
+          "en": "Choose a domain for Mopidy",
+          "fr": "Choisissez un domaine pour Mopidy"
+                },
 				"example": "example.org"
 			},
 			{
 				"name": "path",
 				"type": "path",
-				"ask": {
-					"en": "Choose a path for Mopidy",
-					"fr": "Choisissez un chemin pour Mopidy"
-				},
 				"example": "/mopidy",
 				"default": "/mopidy"
 			},
 			{
 				"name": "is_public",
 				"type": "boolean",
+				"help": "en: public app can be used by anonymous visitors",
+				"default": true
 				"ask": {
 					"en": "Is it a public application?",
 					"fr": "Est-ce une application publique ?"
