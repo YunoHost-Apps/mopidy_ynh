@@ -3,9 +3,9 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "Mopidy - is an extensible music server written in Python."
+		"en": "An extensible music server to play music, podcasts and radio programs from local disk and various streaming services" 
 	},
-	"version": "1.0.2",
+	"version": "3.1.1-ynh1",
 	"url": "https://www.mopidy.com/",
 	"license": "Apache-2.0",
 	"maintainer": {
@@ -28,6 +28,10 @@
 			{
 				"name": "domain",
 				"type": "domain",
+        "ask": {
+          "en": "Choose a domain for Mopidy",
+          "fr": "Choisissez un domaine pour Mopidy"
+                },
 				"example": "example.org"
 			},
 			{
@@ -41,6 +45,11 @@
 				"type": "boolean",
 				"help": "en: public app can be used by anonymous visitors",
 				"default": true
+				"ask": {
+					"en": "Is it a public application?",
+					"fr": "Est-ce une application publique ?"
+				},
+				"default": false
 			}
 		]
 	}
