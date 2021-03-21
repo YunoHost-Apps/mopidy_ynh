@@ -1,10 +1,10 @@
 {
-    "name": "music",
-    "id": "musicbox",
-    "packaging_format": 1,
-    "description": {
-        "en": "webclient to control mopidy music server"
-    },
+	"name": "Mopidy",
+	"id": "mopidy",
+	"packaging_format": 1,
+	"description": {
+		"en": "An extensible music server to play music, podcasts and radio programs from local disk and various streaming services" 
+	},
     "version": "1.0~ynh1",
     "url": "https://www.mopidy.com/",
     "license": "free",
