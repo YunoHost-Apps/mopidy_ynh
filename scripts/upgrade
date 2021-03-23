@@ -111,7 +111,7 @@ ynh_add_nginx_config
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Upgrading dependencies..." --time --weight=11
+ynh_script_progression --message="Upgrading dependencies..." --weight=11
 
 ynh_install_app_dependencies $pkg_dependencies
 
@@ -211,4 +211,4 @@ ynh_script_progression --message="Scan local media directory..." --weight=3
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --time --last
+ynh_script_progression --message="Upgrade of $app completed" --last
