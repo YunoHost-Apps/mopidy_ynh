@@ -80,7 +80,6 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell
 # INSTALL MOPIDY IN PYTHON ENVIRONMENT
 #=================================================
 ynh_script_progression --message="Install in Python environment..." --weight=30
-pwd
 
 myynh_install
 
