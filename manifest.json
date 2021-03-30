@@ -29,7 +29,7 @@
                 "name": "domain",
                 "type": "domain",
                 "ask": {
-                    "en": "Choose a domain name for Calibre-web"
+                    "en": "Choose a domain name for Mopidy"
                 },
                 "example": "example.com"
             },
