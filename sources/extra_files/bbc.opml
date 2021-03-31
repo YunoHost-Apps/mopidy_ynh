@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<opml version="1.0">
+    <head>
+        <title>Podcast Feeds</title>
+    </head>
+
+    <body>
+    <outline text="feeds">
+            <outline type="rss" text="Go Ask Your Mother" xmlUrl="https://podcasts.files.bbci.co.uk/p08k52rs.rss" />
+            <outline type="rss" text="Newscast" xmlUrl="https://podcasts.files.bbci.co.uk/p05299nl.rss" />
+            <outline type="rss" text="The Comb" xmlUrl="https://podcasts.files.bbci.co.uk/w13xtv78.rss" />
+            <outline type="rss" text="Friday Night Comedy from BBC Radio 4" xmlUrl="https://podcasts.files.bbci.co.uk/p02pc9pj.rss" />
+            <outline type="rss" text="United Zingdom" xmlUrl="https://podcasts.files.bbci.co.uk/p0863v08.rss" />
+            <outline type="rss" text="Desert Island Discs" xmlUrl="https://podcasts.files.bbci.co.uk/b006qnmr.rss" />
+            <outline type="rss" text="No Country For Young Women" xmlUrl="https://podcasts.files.bbci.co.uk/p063zy3c.rss" />
+            <outline type="rss" text="The Documentary Podcast" xmlUrl="https://podcasts.files.bbci.co.uk/p02nq0lx.rss" />
+            <outline type="rss" text="You&#39;re Dead To Me" xmlUrl="https://podcasts.files.bbci.co.uk/p07mdbhg.rss" />
+            <outline type="rss" text="Have You Heard George&#39;s Podcast?" xmlUrl="https://podcasts.files.bbci.co.uk/p07915kd.rss" />
+            <outline type="rss" text="The Sista Collective" xmlUrl="https://podcasts.files.bbci.co.uk/p06ptdhf.rss" />
+            <outline type="rss" text="Global News Podcast" xmlUrl="https://podcasts.files.bbci.co.uk/p02nq0gn.rss" />
+            <outline type="rss" text="50 Things That Made the Modern Economy" xmlUrl="https://podcasts.files.bbci.co.uk/p04b1g3c.rss" />
+            <outline type="rss" text="How Do You Cope? …with Elis and John" xmlUrl="https://podcasts.files.bbci.co.uk/p07rq6vh.rss" />
+    </outline>
+    </body>
+</opml>

@@ -1,114 +1,85 @@
 # Mopidy for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
+[![Install mopidy with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
-## Mopidy c'est quoi ?
+*[Lire ce readme en français.](./README_fr.md)*
 
-Mopidy - est un serveur de musique extensible écrit en Python
+> *This package allows you to install Mopidy quickly and simply on a YunoHost server.  
+If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
-Mopidy joue de la musique à partir de disque local, Spotify, SoundCloud, Google Play Musique, et plus encore. Vous pouvez modifier la liste de lecture à partir d'un téléphone, d'une tablette ou d'un ordinateur en utilisant une gamme de clients MPD et Web.
+## Overview
+Mopidy - is an extensible music server.
+It plays music, podcasts and radio programs from local disk and various streaming services. You edit the playlist from any phone, tablet, or computer.
 
-Source: [mopidy.com](https://www.mopidy.com)
+**Shipped version:** 3.1.1
 
-Vous pouvez installer Mopidy sur un Raspberrypi pour lire de la musique chez vous. Branchez votre Raspberry sur votre système son, sur le bluetooth ou wifi et lancer l'interface web (Mopidy-MusicBox-Webclient) accessible dans l'interface utilisateur de YunoHost.
+## Screenshots
 
-Vous pouvez ajouter de nouveaux fichiers sons dans le répertoire suivant
-/var/lib/mopidy/media/, pensez à rescanner votre répertoire après l'ajout (voir commandes en dessous).
+![](sources/extra_files/mopidy_screenshot1.png)
+## Demo
 
-L'application YunoHost vous permet de vous connecter à Spotify (version premium seulement, la version free ne fonctionne pas) ou Soundcloud.
+* No demo available
 
-Pour récupérer vos clés pour Spotify et Soundcloud :
+## Configuration
 
-[Authentification Mopidy avec les services en ligne](https://www.mopidy.com/authenticate/)
+This installation is shipped with various extensions:
 
-Insérer les clés d'authentifications lors de l'installation de l'application.
+* [MusicBox-Webclient](https://mopidy.com/ext/musicbox-webclient/) to control mopidy from your web browser
+* [local](https://mopidy.com/ext/local/) to make your private music collection on `/home/yunohost.multimedia/share/Music/` browseable and searchable
+* [YouTube](https://pypi.org/project/Mopidy-YouTube/) to play sound from YouTube
+* [YTMusic](https://music.youtube.com/) to access Google’s streaming music named [YouTube Music](https://music.youtube.com/) 
+* [Podcast-iTunes](https://mopidy.com/ext/podcast-itunes/) to search and browse podcasts from the Apple iTunes Store.
+* [RadioNet](https://mopidy.com/ext/radionet/) to play radio channels from the [radio.net](https://www.radio.net/).
+* [Podcast](https://mopidy.com/ext/podcast/) to browse RSS feeds of podcasts and stream the episodes.
+* [Soundcloud](https://pypi.org/project/Mopidy-SoundCloud/) to play music from the [SoundCloud](https://soundcloud.com/) service \([authentication token](https://pypi.org/project/Mopidy-SoundCloud/) needed\).
 
-### Vérifier que le sons fonctionne
+## Documentation
 
-Depuis l'interface web, aller dans "Browse" > "File" > "Media". Sur cette page vous avez un morceau qui est importé dans l'application lors de l'installation. Ce titre se nomme "Tryad Beauty", ce morceau est libre de droit.
+ * Official documentation: https://docs.mopidy.com/en/latest/
 
-### Problème pouvant survenir
+## YunoHost specific features
 
-Il se peut que vous n'ayez pas de son, je vous invite à vous renseigner sur [la documentation de Mopidy](https://docs.mopidy.com/en/latest/audio/).
+#### Multi-user support
 
-### Pour les bidouilleurs
+Are LDAP and HTTP auth supported? No \
+Can the app be used by multiple users? ??
 
-Vous pouvez arrêter le service depuis la page "Services" dans l'interface d'administration de YunoHost.
+#### Supported architectures
 
-Les fichiers de configuration se trouve dans le répertoire /usr/share/mopidy/conf.d
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mopidy/)
 
-*Les lignes de commandes relative à Mopidy*
+## Limitations
 
-sudo mopidy local scan
-sudo systemctl enable mopidy
-sudo systemctl restart mopidy
+* Any known limitations.
 
-Vérifier le statut de Mopidy
-`$ sudo systemctl status mopidy` 
+## Additional information
 
-Relancer Mopidy
-`$ sudo systemctl restart mopidy` 
+* To list current settings enter `sudo mopidyctl config`.
+* Edit the file `/opt/yunohost/mopidy/mopidy.conf` to adjust mopidy's configuration.
+* To rebuild the database of your local music collection enter `sudo mopidyctl local scan`.
 
-Activer ou désactiver Mopidy
-`$ sudo systemctl enable mopidy` 
-`$ sudo systemctl disable mopidy` 
+**More info on the documentation page:**  
+https://yunohost.org/packaging_apps
 
-Si vous ajoutez de nouveaux fichiers dans le répertoire local, rescanner votre répertoire.
-`$ mopidy local scan`
+## Links
 
-## Why Mopidy?
+ * Report a bug: https://github.com/YunoHost-Apps/mopidy_ynh/issues
+ * App website: https://mopidy.com/
+ * YunoHost website: https://yunohost.org/
 
-Mopidy - is an extensible music server written in Python.
+---
 
-Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more. You edit the playlist from any phone, tablet, or computer using a range of MPD and web clients.
+## Developer info
 
-Source: [mopidy.com](https://www.mopidy.com)
+**Only if you want to use a testing branch for coding, instead of merging directly into master.**
+Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
-You can install Mopidy on a Raspberrypi to play music at home. Connect your Raspberry on your soundsystem, bluetooth or wifi and launch the web interface (Mopidy-MusicBox-Webclient) in the user interface of YunoHost.
+To try the testing branch, please proceed like that.
+```
+sudo yunohost app install https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug
+or
+sudo yunohost app upgrade mopidy -u https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug
 
-You can add new sound files to the following directory /var/lib/mopidy/media/, think about rescanning your directory after adding it (see commands below).
-
-The YunoHost application allows you to connect to Spotify (premium version only, free version does not work) or Soundcloud.
-
-To retrieve your keys for Spotify and Soundcloud:
-
-[Mopidy Authentication with Online Services] (https://www.mopidy.com/authenticate/)
-
-Insert authentication keys when installing the application.
-
-### Check that the sounds are working
-
-From the web interface, go to "Browse"> "File"> "Media". On this page you have a song that is imported into the application during installation. This title is called "Tryad Beauty", this piece is free of rights.
-
-### Troubleshooting
-
-You may have no sound, check [Mopidy's documentation] (https://docs.mopidy.com/en/latest/audio/).
-
-### For hackers
-
-You can stop the service from the "Services" page in the YunoHost administration interface.
-
-The configuration files can be found in the directory /usr/share/mopidy/conf.d
-
-*Commandline for Mopidy*
-
-Check Mopidy's status
-`$ sudo systemctl status mopidy`
-
-Restart Mopidy
-`$ sudo systemctl restart mopidy`
-
-Enable or disable Mopidy
-`$ sudo systemctl enable mopidy`
-`$ sudo systemctl disable mopidy`
-
-If you add new files to the local directory, rescan your directory.
-`$ mopidy local scan`
-
-## Versionning
-
-### Version 1.0.0 (06/03/17)
-
-- Installation Mopidy and Mopidy-MusicBox-Webclient
-- Use Spotify connection
-- Use SoundCloud connection
+```
