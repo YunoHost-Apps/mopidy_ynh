@@ -35,7 +35,9 @@ myynh_install() {
 
         # install essential packages
         ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.1.1
+
 #	patch -u $final_path/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
+
 	
         ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
@@ -51,15 +53,6 @@ myynh_install() {
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.0
 #	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --weight=6
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud
-#	ynh_script_progression --message="Installing Mopidy-Spotify..." --time --weight=1
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Spotify   Spotify Lib currently not available!!
-
-#	if [ -n "$(uname -m | grep arm)" ];		# check CPU (raspberry is armxx)
-#  	    then
-#    	    ynh_script_progression --message="Installing Mopidy-Raspberry-GPIO..." --time --weight=1
-#	        ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Raspberry-GPIO
-#  	fi
-	
 	
 #	set +o nounset
 #	source "${final_path}/env/bin/deactivate"
