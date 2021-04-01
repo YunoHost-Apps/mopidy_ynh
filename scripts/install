@@ -82,6 +82,7 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell
 ynh_script_progression --message="Install in Python environment..." --weight=30
 
 myynh_install
+patch -u $final_path/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 
