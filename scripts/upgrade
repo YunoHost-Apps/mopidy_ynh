@@ -102,7 +102,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..." --weight=11
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE DEDICATED USER
@@ -162,7 +162,7 @@ chown $app: $final_path
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --log_type systemd --description "this is mopidy, a music server"
+yunohost service add $app --description "Mopidy music server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
