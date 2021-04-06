@@ -4,7 +4,7 @@
 # COMMON VARIABLES
 #=================================================
 # dependencies used by the app
-pkg_dependencies="build-essential python3-dev python3-pip python3-venv git postgresql postgresql-contrib \
+pkg_dependencies="acl build-essential python3-dev python3-pip python3-venv git postgresql postgresql-contrib \
                   gir1.2-gst-plugins-base-1.0 gir1.2-gstreamer-1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly lsb-base \
 		  python3-gst-1.0 python3-tornado (>= 4.4) debconf python3-pkg-resources python3-pykka python3-requests \
 		  gstreamer1.0-alsa gstreamer1.0-pulseaudio gstreamer1.0-tools"
@@ -33,13 +33,13 @@ myynh_install() {
         $final_path/env/bin/python3 -m pip install vext
 	$final_path/env/bin/python3 -m pip install --no-binary=:all: vext.gi
 
-        # install essential packages
-        ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.1.1
+    # install essential packages
+    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.1.1
 
 #	patch -u $final_path/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
 
 	
-        ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
+    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
 #	ynh_script_progression --message="Installing Mopidy-YouTube..." --weight=7
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.2

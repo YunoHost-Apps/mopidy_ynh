@@ -1,7 +1,7 @@
 # Mopidy pour YunoHost
 
 [![Niveau d'intégration](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
-[![Installer mopidy avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
+[![Installer Mopidy avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
 *[Read this readme in english.](./README.md)* 
 
@@ -9,8 +9,7 @@
 Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
 
 ## Vue d'ensemble
-Mopidy - est un serveur de musique extensible.
-Mopidy lit de la musique, des podcasts et des programmes de radio à partir d'un disque local et de divers services de streaming.
+Mopidy - est un serveur de musique extensible. Mopidy lit de la musique, des podcasts et des programmes de radio à partir d'un disque local et de divers services de streaming.
 Vous pouvez modifier la liste de lecture à partir d'un téléphone, d'une tablette ou d'un ordinateur.
 
 **Version incluse :** 3.1.1
@@ -40,17 +39,18 @@ Cette installation est livrée avec différentes extensions:
 ## Documentation
 
  * Documentation officielle : https://docs.mopidy.com/en/latest/
+
 ## Caractéristiques spécifiques YunoHost
 
 #### Support multi-utilisateur
 
-* L'authentification LDAP et HTTP est-elle prise en charge ? Non 
+* L'authentification LDAP et HTTP est-elle prise en charge ? **Non**
 * L'application peut-elle être utilisée par plusieurs utilisateurs ?
 
 #### Architectures supportées
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mopidy/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mopidy.svg)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mopidy.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mopidy/)
 
 ## Limitations
 
@@ -59,11 +59,8 @@ Cette installation est livrée avec différentes extensions:
 ## Informations additionnelles
 
 * Pour lister les paramètres actuels, entrez  `sudo mopidyctl config`
-* Modifiez le fichier /opt/yunohost/mopidy/mopidy.conf pour ajuster la configuration de mopidy
+* Modifiez le fichier `/opt/yunohost/mopidy/mopidy.conf` pour ajuster la configuration de mopidy
 * Pour reconstruire la base de données de votre collection de musique locale, entrez `sudo mopidyctl local scan`
-
-**Plus d'informations sur la page de documentation :**  
-https://yunohost.org/packaging_apps
 
 ## Liens
 
@@ -75,7 +72,6 @@ https://yunohost.org/packaging_apps
 
 ## Informations pour les développeurs
 
-**Seulement si vous voulez utiliser une branche de test pour le codage, au lieu de fusionner directement dans la banche principale.**
 Merci de faire vos pull request sur la [branche testing](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
 Pour essayer la branche testing, procédez comme suit.
