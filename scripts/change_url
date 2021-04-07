@@ -105,8 +105,8 @@ then
 	ynh_permission_url --permission="main" --add_url="$new_domain/mopidy/ws" --remove_url="$old_domain/mopidy/ws"
 	ynh_permission_url --permission="main" --add_url="$new_domain/local" --remove_url="$old_domain/local"
 	ynh_permission_url --permission="main" --add_url="$new_domain/musicbox_webclient" --remove_url="$old_domain/musicbox_webclient"
-
 fi
+
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================

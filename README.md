@@ -1,7 +1,7 @@
 # Mopidy for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
-[![Install mopidy with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
+[![Install Mopidy with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
@@ -9,8 +9,7 @@
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
-Mopidy - is an extensible music server.
-It plays music, podcasts and radio programs from local disk and various streaming services. You edit the playlist from any phone, tablet, or computer.
+Mopidy - is an extensible music server. It plays music, podcasts and radio programs from local disk and various streaming services. You edit the playlist from any phone, tablet, or computer.
 
 **Shipped version:** 3.1.1
 
@@ -42,13 +41,13 @@ This installation is shipped with various extensions:
 
 #### Multi-user support
 
-Are LDAP and HTTP auth supported? No \
-Can the app be used by multiple users? ??
+* Are LDAP and HTTP auth supported? **No**
+* Can the app be used by multiple users? ??
 
 #### Supported architectures
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mopidy%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mopidy/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mopidy.svg)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mopidy.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mopidy/)
 
 ## Limitations
 
@@ -57,11 +56,8 @@ Can the app be used by multiple users? ??
 ## Additional information
 
 * To list current settings enter `sudo mopidyctl config`.
-* Edit the file `/opt/yunohost/mopidy/mopidy.conf` to adjust mopidy's configuration.
+* Edit the file `/opt/yunohost/mopidy/mopidy.conf` to adjust Mopidy's configuration.
 * To rebuild the database of your local music collection enter `sudo mopidyctl local scan`.
-
-**More info on the documentation page:**  
-https://yunohost.org/packaging_apps
 
 ## Links
 
@@ -73,7 +69,6 @@ https://yunohost.org/packaging_apps
 
 ## Developer info
 
-**Only if you want to use a testing branch for coding, instead of merging directly into master.**
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
