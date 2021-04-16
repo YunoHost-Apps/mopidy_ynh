@@ -11,6 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Vue d'ensemble
 Mopidy - est un serveur de musique extensible. Mopidy lit de la musique, des podcasts et des programmes de radio à partir d'un disque local et de divers services de streaming.
 Vous pouvez modifier la liste de lecture à partir d'un téléphone, d'une tablette ou d'un ordinateur.
+Vous entendez la musique via les haut-parleurs connectés au serveur.
 
 **Version incluse :** 3.1.1
 
@@ -54,7 +55,7 @@ Cette installation est livrée avec différentes extensions:
 
 ## Limitations
 
-* Limitations connues.
+* Ne peut pas être utilisé avec des VPS ou d'autres serveurs qui n'ont pas de matériel audio réel
 
 ## Informations additionnelles
 
