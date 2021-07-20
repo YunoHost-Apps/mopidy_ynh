@@ -95,10 +95,8 @@ ynh_script_progression --message="Configuring NGINX web server..."
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-
 #=================================================
 # SPECIFIC SETUP
-#=================================================
 #=================================================
 # CREATE YUNOHOST DIRECTORIES
 #=================================================
@@ -117,7 +115,7 @@ ynh_script_progression --message="Configuring a systemd service..."
 
 # Create a dedicated systemd config
 start_file="$final_path/env/bin/$app"
-ynh_add_systemd_config --others_var="conf_file start_file"     # substitute __CONF_FILE__ by $conf_file
+ynh_add_systemd_config
 
 #=================================================
 # MODIFY A CONFIG FILE
@@ -172,9 +170,7 @@ if [ $is_public -eq 1 ]; then
 	ynh_permission_update --permission="main" --add="visitors"
 fi
 
-ynh_permission_url --permission="main" --add_url="$domain/mopidy/ws"
-ynh_permission_url --permission="main" --add_url="$domain/musicbox_webclient"
-ynh_permission_url --permission="main" --add_url="$domain/local"
+ynh_permission_url --permission="main" --url="$domain/mopidy/ws" --add_url="$domain/musicbox_webclient $domain/local"
 
 #=================================================
 # RELOAD NGINX
