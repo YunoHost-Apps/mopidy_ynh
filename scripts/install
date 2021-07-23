@@ -124,7 +124,7 @@ ynh_add_systemd_config
 #=================================================
 ynh_script_progression --message="Setup config file..."
 
-ynh_add_config --template="../conf/app.conf" --destination="$final_path/$conf_file"
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
 
 #=================================================
 # GENERIC FINALIZATION
