@@ -121,7 +121,7 @@ ynh_add_systemd_config
 
 ynh_backup_if_checksum_is_different --file="$conf_file"
 
-ynh_add_config --template="../conf/app.conf" --destination="$final_path/$conf_file"
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
 
 #=================================================
 # GENERIC FINALIZATION
