@@ -95,10 +95,8 @@ ynh_script_progression --message="Configuring NGINX web server..."
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-
 #=================================================
 # SPECIFIC SETUP
-#=================================================
 #=================================================
 # CREATE YUNOHOST DIRECTORIES
 #=================================================
@@ -106,8 +104,11 @@ ynh_script_progression --message="Creating YunoHost directories..."
 
 ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
 
-mkdir -p "$work_dir/data"          # /home/yunohost.app/mopidy/data
-mkdir -p "$work_dir/cache"         # /home/yunohost.app/mopidy/cache
+data_dir=$work_dir/data
+mkdir -p "$data_dir" 
+cache_dir=$work_dir/cache         # /home/yunohost.app/mopidy/data
+mkdir -p "$cache_dir"
+       # /home/yunohost.app/mopidy/cache
 chown -R $app: "$work_dir"
 
 #=================================================
@@ -116,26 +117,14 @@ chown -R $app: "$work_dir"
 ynh_script_progression --message="Configuring a systemd service..."
 
 # Create a dedicated systemd config
-start_file="$final_path/env/bin/$app"
-ynh_add_systemd_config --others_var="conf_file start_file"     # substitute __CONF_FILE__ by $conf_file
+ynh_add_systemd_config
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
 ynh_script_progression --message="Setup config file..."
 
-cp ../conf/app.conf "$conf_file"
-
-ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
-ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
-ynh_replace_string --match_string="__CACHE_DIR__" --replace_string=$work_dir/cache --target_file="$conf_file"
-ynh_replace_string --match_string="__DATA_DIR__"  --replace_string=$work_dir/data  --target_file="$conf_file"
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-ynh_store_file_checksum --file="$conf_file"
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$conf_file"
 
 #=================================================
 # GENERIC FINALIZATION

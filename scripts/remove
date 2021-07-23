@@ -22,6 +22,7 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 
 # other variables
 cmd_file="/usr/local/bin/mopidyctl"
+
 #=================================================
 # STANDARD REMOVE
 #=================================================

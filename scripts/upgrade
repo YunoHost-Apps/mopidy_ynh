@@ -113,8 +113,7 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell
 ynh_script_progression --message="Upgrading systemd configuration..." --weight=3
 
 # Create a dedicated systemd config
-start_file="$final_path/env/bin/$app"
-ynh_add_systemd_config --others_var="conf_file start_file"     # substitute __CONF_FILE__ by $conf_file
+ynh_add_systemd_config
 
 #=================================================
 # MODIFY A CONFIG FILE
@@ -122,19 +121,7 @@ ynh_add_systemd_config --others_var="conf_file start_file"     # substitute __CO
 
 ynh_backup_if_checksum_is_different --file="$conf_file"
 
-cp ../conf/app.conf "$conf_file"
-
-ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
-ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
-ynh_replace_string --match_string="__CACHE_DIR__" --replace_string=$work_dir/cache --target_file="$conf_file"
-ynh_replace_string --match_string="__DATA_DIR__"  --replace_string=$work_dir/data  --target_file="$conf_file"
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-# Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum --file="$conf_file"
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$conf_file"
 
 #=================================================
 # GENERIC FINALIZATION
@@ -173,11 +160,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 #=================================================
 ynh_script_progression --message="Provide additional shell comand..."
 
-cp -a ../sources/extra_files/mopidyctl "$cmd_file"
-ynh_replace_string --match_string="__APP__"         --replace_string=$app        --target_file="$cmd_file"
-ynh_replace_string --match_string="__FINAL_PATH__"  --replace_string=$final_path --target_file="$cmd_file"
-ynh_replace_string --match_string="__CONF_FILE__"   --replace_string=$conf_file  --target_file="$cmd_file"
-
+ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 chmod +x "$cmd_file"
 
 #=================================================
