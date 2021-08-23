@@ -3,7 +3,8 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "plays music, podcasts and radio programs from local disk and various streaming services" 
+		"en": "plays music, podcasts and radio programs from local disk and various streaming services",
+		"fr": "Jouer de la musique, podcasts et programmes radio depuis le disque local et de divers services de streaming"
 	},
 	"version": "3.1.1~ynh2",
 	"url": "https://www.mopidy.com/",
@@ -17,7 +18,7 @@
 		"email": "cyp@rouquin.me"
 	},
 	"requirements": {
-		"yunohost": ">= 4.1.7"
+		"yunohost": ">= 4.2.0"
 	},
     "multi_instance": false,
     "services": [
