@@ -143,10 +143,13 @@ ynh_store_file_checksum --file="$conf_file"
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 # user mopidy needs permission to mkdir on final_path
-chown -R root: $final_path
-chown $app: $final_path
+#chown -R root: $final_path
+#chown $app: $final_path
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
