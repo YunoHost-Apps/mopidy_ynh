@@ -221,7 +221,7 @@ fi
 #=================================================
 ynh_script_progression --message="Scan local media directory..."
 
-#"$cmd_file" local scan  2>&1
+"$cmd_file" local scan  2>&1
 
 #=================================================
 # END OF SCRIPT
