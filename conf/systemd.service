@@ -11,7 +11,7 @@ After=sound.target
 [Service]
 User=__APP__
 PermissionsStartOnly=true
-ExecStart=__START_FILE__ --config __CONF_FILE__
+ExecStart=__FINALPATH__/env/bin/__APP____ --config __FINALPATH__/__APP__.conf
 
 [Install]
 WantedBy=multi-user.target
