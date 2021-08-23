@@ -74,6 +74,14 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 ynh_systemd_action --service_name=$app --action="stop"
 
 #=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
+
+# Create a dedicated user (if not existing)
+ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --groups="audio"
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -81,6 +89,10 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	myynh_install
 fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -98,14 +110,6 @@ ynh_script_progression --message="Upgrading dependencies..." --weight=11
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --groups="audio"
-
-#=================================================
 # SPECIFIC UPGRADE
 #=================================================
 # SETUP SYSTEMD
@@ -113,46 +117,23 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --
 ynh_script_progression --message="Upgrading systemd configuration..." --weight=3
 
 # Create a dedicated systemd config
-start_file="$final_path/env/bin/$app"
 ynh_add_systemd_config
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
 
-ynh_backup_if_checksum_is_different --file="$conf_file"
+cache_dir=$work_dir/cache
+data_dir=$work_dir/data 
 
-cp ../conf/app.conf "$conf_file"
-
-ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
-ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
-ynh_replace_string --match_string="__CACHE_DIR__" --replace_string=$work_dir/cache --target_file="$conf_file"
-ynh_replace_string --match_string="__DATA_DIR__"  --replace_string=$work_dir/data  --target_file="$conf_file"
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-# Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum --file="$conf_file"
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-# siwi okay
-
-# user mopidy needs permission to mkdir on final_path
-chown -R root: $final_path
-chown $app: $final_path
+ynh_add_config --template="../conf/app.conf" --destination="$conf_file"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-yunohost service add $app --description "Mopidy music server" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -173,10 +154,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 #=================================================
 ynh_script_progression --message="Provide additional shell comand..."
 
-cp -a ../sources/extra_files/mopidyctl "$cmd_file"
-ynh_replace_string --match_string="__APP__"         --replace_string=$app        --target_file="$cmd_file"
-ynh_replace_string --match_string="__FINAL_PATH__"  --replace_string=$final_path --target_file="$cmd_file"
-ynh_replace_string --match_string="__CONF_FILE__"   --replace_string=$conf_file  --target_file="$cmd_file"
+ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 
 chmod +x "$cmd_file"
 
