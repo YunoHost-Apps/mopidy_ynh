@@ -45,6 +45,15 @@
                     "fr": "L'application publique peut être utilisée par des visiteurs anonymes "
                 },
                 "default": false
+            },
+            {
+                "name": "mpd_ext",
+                "type": "boolean",
+                "help": {
+                    "en": "Install MPD extension?",
+                    "fr": "Vous souhaitez installer l'extension MPD?"
+                },
+                "default": false
             }
         ]
     }
