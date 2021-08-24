@@ -23,7 +23,7 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-mpd_ext=$YNH_APP_ARG_MPD_EXT
+mpd_port=$YNH_APP_ARG_MPD_EXT
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -63,7 +63,7 @@ ynh_script_progression --message="Finding an available port..."
 port=$(ynh_find_port --port=6680)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
-if [ $mpd_ext -eq 1 ]; then
+if [ $mpd_port -eq 1 ]; then
 	mpd_port=$(ynh_find_port --port=6600)
 	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
 	ynh_exec_warn_less yunohost firewall allow --no-upnp Both $mpd_port
