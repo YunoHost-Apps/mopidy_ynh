@@ -58,8 +58,8 @@
                 "name": "mpd_ext",
                 "type": "boolean",
                 "help": {
-                    "en": "Install MPD extension?",
-                    "fr": "Vous souhaitez installer l'extension MPD?"
+                    "en": "Activate MPD extension (will open port 6600)",
+                    "fr": "activer l'extension MPD (il ouvrira le port 6600)"
                 },
                 "default": false
             }
