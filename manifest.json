@@ -8,14 +8,6 @@
 	},
 	"version": "3.2.0~ynh1",
 	"url": "https://www.mopidy.com/",
-    "upstream": {
-        "license": "Apache-2.0",
-        "website": "https://www.mopidy.com/",
-        "demo": "https://demo.example.com",
-        "admindoc": "https://docs.mopidy.com/en/latest/",
-        "userdoc": "https://yunohost.org/apps",
-        "code": "https://github.com/mopidy/mopidy"
-    },
 	"license": "Apache-2.0",
 	"maintainer": {
 		"name": "siwinter",
