@@ -155,7 +155,11 @@ chown -R $app:www-data "$final_path"
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+if [ $mpd_port -ne 0 ]; then
+	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+else
+	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+fi
 
 #=================================================
 # START SYSTEMD SERVICE
