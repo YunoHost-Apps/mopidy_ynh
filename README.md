@@ -32,6 +32,7 @@ This installation is shipped with various extensions:
 * [RadioNet](https://mopidy.com/ext/radionet/) to play radio channels from the [radio.net](https://www.radio.net/).
 * [Podcast](https://mopidy.com/ext/podcast/) to browse RSS feeds of podcasts and stream the episodes.
 * [Soundcloud](https://pypi.org/project/Mopidy-SoundCloud/) to play music from the [SoundCloud](https://soundcloud.com/) service \([authentication token](https://pypi.org/project/Mopidy-SoundCloud/) needed\).
+* [MPD](https://mopidy.com/ext/mpd/) can be activated in order to use apps that control mopidy via this protocol. (This will open port 6600.) 
 
 ## Documentation
 
