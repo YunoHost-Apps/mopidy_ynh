@@ -41,9 +41,7 @@ myynh_install() {
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast==3.0.0
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.0
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud==3.0.1
-	if [ $mpd_port -ne 0 ]; then
-		ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MPD==3.1.0
-	fi
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MPD==3.1.0
     )
 }
 
