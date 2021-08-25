@@ -59,7 +59,7 @@
                 "type": "boolean",
                 "help": {
                     "en": "Activate MPD extension (will open port 6600)",
-                    "fr": "activer l'extension MPD (il ouvrira le port 6600)"
+                    "fr": "Activer l'extension MPD (il ouvrira le port 6600)"
                 },
                 "default": false
             }
