@@ -3,8 +3,8 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "plays music, podcasts and radio programs from local disk and various streaming services",
-		"fr": "Jouer de la musique, podcasts et programmes radio depuis le disque local et de divers services de streaming"
+		"en": "Play music, podcasts and radio programs from local disk and various streaming services",
+		"fr": "Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming"
 	},
 	"version": "3.2.0~ynh1",
 	"url": "https://www.mopidy.com/",
