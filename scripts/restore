@@ -90,9 +90,9 @@ chown -R $app:www-data "$final_path"
 #=================================================
 # OPEN PORT
 #=================================================
-ynh_script_progression --message="open port $mpd_port..." --weight=1
 
 if [ $mpd_port -ne 0 ]; then
+	ynh_script_progression --message="open MPD-port $mpd_port..." --weight=1
 	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
 fi
 
