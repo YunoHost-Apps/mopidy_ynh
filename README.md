@@ -21,6 +21,10 @@ Play music, podcasts and radio programs from local disk and various streaming se
 
 **Demo:** https://demo.example.com
 
+## Screenshots
+
+![](./doc/screenshots/mopidy_screenshot1.png)
+
 ## Disclaimers / important information
 
 * Any known limitations, constrains or stuff not working, such as (but not limited to):

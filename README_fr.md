@@ -17,6 +17,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 **Démo :** https://demo.example.com
 
+## Captures d'écran
+
+![](./doc/screenshots/mopidy_screenshot1.png)
+
 ## Avertissements / informations importantes
 
 * Any known limitations, constrains or stuff not working, such as (but not limited to):
