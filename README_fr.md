@@ -17,6 +17,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 **Démo :** https://demo.example.com
 
+## Avertissements / informations importantes
+
+
+
 ## Documentations et ressources
 
 * Site officiel de l'app : https://www.mopidy.com/

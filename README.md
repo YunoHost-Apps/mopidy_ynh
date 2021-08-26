@@ -21,6 +21,10 @@ Play music, podcasts and radio programs from local disk and various streaming se
 
 **Demo:** https://demo.example.com
 
+## Disclaimers / important information
+
+
+
 ## Documentation and resources
 
 * Official app website: https://www.mopidy.com/
