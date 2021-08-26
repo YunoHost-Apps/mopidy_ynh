@@ -19,7 +19,7 @@ Play music, podcasts and radio programs from local disk and various streaming se
 
 **Shipped version:** 3.2.0~ynh1
 
-**Demo:** https://demo.example.com
+
 
 ## Screenshots
 

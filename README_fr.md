@@ -15,7 +15,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 **Version incluse :** 3.2.0~ynh1
 
-**Démo :** https://demo.example.com
+
 
 ## Captures d'écran
 
