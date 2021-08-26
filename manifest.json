@@ -3,9 +3,10 @@
 	"id": "mopidy",
 	"packaging_format": 1,
 	"description": {
-		"en": "plays music, podcasts and radio programs from local disk and various streaming services" 
+		"en": "Play music, podcasts and radio programs from local disk and various streaming services",
+		"fr": "Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming"
 	},
-	"version": "3.1.1~ynh2",
+	"version": "3.2.0~ynh1",
 	"url": "https://www.mopidy.com/",
 	"license": "Apache-2.0",
 	"maintainer": {
@@ -17,7 +18,7 @@
 		"email": "cyp@rouquin.me"
 	},
 	"requirements": {
-		"yunohost": ">= 4.1.7"
+		"yunohost": ">= 4.2.0"
 	},
     "multi_instance": false,
     "services": [
@@ -42,6 +43,15 @@
                 "help": {
                     "en": "Public app can be used by anonymous visitors",
                     "fr": "L'application publique peut être utilisée par des visiteurs anonymes "
+                },
+                "default": false
+            },
+            {
+                "name": "mpd_ext",
+                "type": "boolean",
+                "help": {
+                    "en": "Activate MPD extension (this will open port 6600)",
+                    "fr": "Activer l'extension MPD (cela ouvrira le port 6600)"
                 },
                 "default": false
             }

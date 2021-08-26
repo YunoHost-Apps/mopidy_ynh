@@ -23,6 +23,7 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
+mpd_port=$YNH_APP_ARG_MPD_EXT
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -62,6 +63,16 @@ ynh_script_progression --message="Finding an available port..."
 port=$(ynh_find_port --port=6680)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
+if [ $mpd_port -eq 1 ]; then
+	mpd_port=$(ynh_find_port --port=6600)
+	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
+	mpd_state="true"
+else
+	mpd_state="false"
+fi
+
+ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
+
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
@@ -95,10 +106,6 @@ ynh_script_progression --message="Configuring NGINX web server..."
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
 #=================================================
 # CREATE YUNOHOST DIRECTORIES
 #=================================================
@@ -116,20 +123,18 @@ chown -R $app: "$work_dir"
 ynh_script_progression --message="Configuring a systemd service..."
 
 # Create a dedicated systemd config
-start_file="$final_path/env/bin/$app"
-ynh_add_systemd_config #--others_var="conf_file start_file"      substitute __CONF_FILE__ by $conf_file
+
+ynh_add_systemd_config
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
 ynh_script_progression --message="Setup config file..."
 
-cp ../conf/app.conf "$conf_file"
+cache_dir=$work_dir/cache
+data_dir=$work_dir/data 
 
-ynh_replace_string --match_string="__PORT__"      --replace_string=$port           --target_file="$conf_file"
-ynh_replace_string --match_string="__MEDIADIR__"  --replace_string=$media_dir      --target_file="$conf_file"
-ynh_replace_string --match_string="__CACHE_DIR__" --replace_string=$work_dir/cache --target_file="$conf_file"
-ynh_replace_string --match_string="__DATA_DIR__"  --replace_string=$work_dir/data  --target_file="$conf_file"
+ynh_add_config --template="../conf/app.conf" --destination="$conf_file"
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
@@ -142,17 +147,20 @@ ynh_store_file_checksum --file="$conf_file"
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
-
-# user mopidy needs permission to mkdir on final_path
-chown -R root: $final_path
-chown $app: $final_path
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add $app --description "Mopidy music server" --log="/var/log/$app/$app.log"
+if [ $mpd_port -ne 0 ]; then
+	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+else
+	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+fi
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -188,10 +196,7 @@ ynh_systemd_action --service_name=nginx --action=reload
 #=================================================
 ynh_script_progression --message="Provide additional shell command..."
 
-cp -a ../sources/extra_files/mopidyctl "$cmd_file"
-ynh_replace_string --match_string="__APP__"        --replace_string=$app        --target_file="$cmd_file"
-ynh_replace_string --match_string="__FINAL_PATH__" --replace_string=$final_path --target_file="$cmd_file"
-ynh_replace_string --match_string="__CONF_FILE__"  --replace_string=$conf_file  --target_file="$cmd_file"
+ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 
 chmod +x "$cmd_file"
 

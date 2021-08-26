@@ -16,47 +16,32 @@ pkg_dependencies="acl build-essential python3-dev python3-pip python3-venv git p
 python_version="$(python3 -V | cut -d' ' -f2 | cut -d. -f1-2)"
 
 myynh_install() {
-#    ynh_script_progression --message="Install / upgrade mopidy via pip..."  --weight=8
     python3 -m venv "${final_path}/env"
     chown -R "$app" "$final_path"
 
-#run source in a 'sub shell'
+    #run source in a 'sub shell'
     (
-        set +o nounset
-        source "${final_path}/env/bin/activate"
-        set -o nounset
-        ynh_exec_as $app $final_path/env/bin/pip install --upgrade --no-cache-dir pip
-
-#        ynh_script_progression --message="Installing essentials..." --weight=17
+	set +o nounset
+	source "${final_path}/env/bin/activate"
+	set -o nounset
+	ynh_exec_as $app $final_path/env/bin/pip install --upgrade --no-cache-dir pip
         
 	# to make Gstreamer visible in Python environment
-        $final_path/env/bin/python3 -m pip install vext
+	$final_path/env/bin/python3 -m pip install vext
 	$final_path/env/bin/python3 -m pip install --no-binary=:all: vext.gi
 
-    # install essential packages
-    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.1.1
-
-#	patch -u $final_path/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
-
-	
-    ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
-#	ynh_script_progression --message="Installing Mopidy-YouTube..." --weight=7
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.2
-#	ynh_script_progression --message="Installing Mopidy-YTMusic..." --weight=2
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YTMusic==0.2.2
-#	ynh_script_progression --message="Installing Mopidy-RadioNet..."
+	# install essential packages
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.2.0
+        
+        ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
+    	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.3
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir mopidy-ytmusic==0.3.0
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-RadioNet==0.2.2
-#	ynh_script_progression --message="Installing Mopidy-Podcast..."
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast==3.0.0
-#	ynh_script_progression --message="Installing Mopidy-Podcast-iTunes..." --weight=2
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.0
-#	ynh_script_progression --message="Installing Mopidy-SoundCloud..." --weight=6
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud
-	
-#	set +o nounset
-#	source "${final_path}/env/bin/deactivate"
-#	set -o nounset
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud==3.0.1
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MPD==3.1.0
     )
 }
 
@@ -67,15 +52,3 @@ myynh_install() {
 #=================================================
 # FUTURE OFFICIAL HELPERS
 #=================================================
-
-#=================================================
-# YUNOHOST MULTIMEDIA INTEGRATION
-#=================================================
-
-# Install or update the main directory yunohost.multimedia
-# see https://github.com/YunoHost-Apps/yunohost.multimedia
-ynh_multimedia_build_main_dir () {
-    wget -nv https://github.com/maniackcrudelis/yunohost.multimedia/archive/master.zip 2>&1
-    unzip master.zip
-    sudo ./yunohost.multimedia-master/script/ynh_media_build.sh
-}
