@@ -13,7 +13,7 @@ Mopidy - est un serveur de musique extensible. Mopidy lit de la musique, des pod
 Vous pouvez modifier la liste de lecture à partir d'un téléphone, d'une tablette ou d'un ordinateur.
 Vous entendez la musique via les haut-parleurs connectés au serveur.
 
-**Version incluse :** 3.1.1
+**Version incluse :** 3.2.0
 
 ## Captures d'écran
 
