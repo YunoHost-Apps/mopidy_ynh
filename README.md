@@ -11,7 +11,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Overview
 Mopidy - is an extensible music server. It plays music, podcasts and radio programs from local disk and various streaming services. You edit the playlist from any phone, tablet, or computer. You hear the music through the speakers connected to the server.
 
-**Shipped version:** 3.1.1
+**Shipped version:** 3.2.0
 
 ## Screenshots
 
