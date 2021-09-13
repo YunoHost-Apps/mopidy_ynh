@@ -40,9 +40,9 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Documentations et ressources
 
-* Site officiel de l'app : https://www.mopidy.com/
-* Documentation officielle utilisateur : https://yunohost.org/apps
-* Documentation officielle de l'admin : https://docs.mopidy.com/en/latest/
+* Site officiel de l'app : https://www.mopidy.com
+* Documentation officielle utilisateur : https://yunohost.org/apps/
+* Documentation officielle de l'admin : https://docs.mopidy.com/en/latest
 * Dépôt de code officiel de l'app : https://github.com/mopidy/mopidy
 * Documentation YunoHost pour cette app : https://yunohost.org/app_mopidy
 * Signaler un bug : https://github.com/YunoHost-Apps/mopidy_ynh/issues
