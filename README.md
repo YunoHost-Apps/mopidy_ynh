@@ -45,7 +45,6 @@ Play music, podcasts and radio programs from local disk and various streaming se
 ## Documentation and resources
 
 * Official app website: https://www.mopidy.com
-* Official user documentation: https://yunohost.org/apps/
 * Official admin documentation: https://docs.mopidy.com/en/latest
 * Upstream app code repository: https://github.com/mopidy/mopidy
 * YunoHost documentation for this app: https://yunohost.org/app_mopidy

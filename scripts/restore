@@ -39,18 +39,7 @@ cmd_file="/usr/local/bin/mopidyctl"
 #=================================================
 ynh_script_progression --message="Validating restoration parameters..." --weight=3
 
-test ! -d $final_path \
-	|| ynh_die --message="There is already a directory: $final_path "
-
-# Check web path availability
-ynh_webpath_available $domain $path_url\
-	|| ynh_die --message="Path not available: ${domain}${path_url}"
-ynh_webpath_available $domain "/musicbox_webclient"\
-	|| ynh_die --message="Path not available: ${domain}/musicbox_webclient"
-ynh_webpath_available $domain "/mopidy"\
-	|| ynh_die --message="Path not available: ${domain}/mopidy"
-ynh_webpath_available $domain "/local"\
-	|| ynh_die --message="Path not available: ${domain}/local"
+test ! -d $final_path || ynh_die --message="There is already a directory: $final_path "
 
 #=================================================
 # STANDARD RESTORATION STEPS
