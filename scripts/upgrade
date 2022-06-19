@@ -125,7 +125,7 @@ chmod 400 "$final_path/some_config_file"
 chown $app:$app "$final_path/some_config_file"
 
 #=================================================
-# PROVIDE ADDITIONAL SHELL COMAND 
+# PROVIDE ADDITIONAL SHELL COMMAND 
 #=================================================
 ynh_script_progression --message="Provide additional shell comand..."
 

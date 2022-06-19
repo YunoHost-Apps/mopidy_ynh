@@ -150,7 +150,7 @@ ynh_script_progression --message="Configuring a systemd service..."
 ynh_add_systemd_config
 
 #=================================================
-# PROVIDE ADDITIONAL SHELL COMAND 
+# PROVIDE ADDITIONAL SHELL COMMAND 
 #=================================================
 ynh_script_progression --message="Provide additional shell command..."
 
