@@ -118,9 +118,9 @@ systemctl enable $app.service --quiet
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
 else
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+	yunohost service add $app --description="Mopidy music server"
 fi
 
 #=================================================

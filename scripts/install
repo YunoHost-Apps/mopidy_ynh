@@ -61,9 +61,8 @@ port=$(ynh_find_port --port=6680)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
 if [ $mpd_port -eq 1 ]; then
-	mpd_port=6600
+	mpd_port=$(ynh_find_port --port=6600)
 	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
-	ynh_port_available --port=$mpd_port || ynh_die --message="Port $mpd_port is needs to be available for this app"
 	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
 	mpd_state="true"
 else
@@ -194,9 +193,9 @@ ynh_script_progression --message="Scan local media directory..."
 ynh_script_progression --message="Integrating service in YunoHost..."
 
 if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
 else
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+	yunohost service add $app --description="Mopidy music server"
 fi
 
 #=================================================
