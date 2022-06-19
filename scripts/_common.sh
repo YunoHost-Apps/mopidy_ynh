@@ -32,7 +32,7 @@ myynh_install() {
 	$final_path/env/bin/python3 -m pip install --no-binary=:all: vext.gi
 
 	# install essential packages
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==3.2.0
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==$(ynh_app_upstream_version)
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.3
