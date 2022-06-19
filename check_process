@@ -1,9 +1,9 @@
-
 ;; Test complet
 	; Manifest
 		domain="domain.tld"
 		path="/path"
 		is_public=1
+		mpd_ext=1
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
@@ -15,11 +15,8 @@
 		upgrade=1	from_commit=bc421d01d57a273a59287cf7500e94a89de0abed
 		backup_restore=1
 		multi_instance=0
+		port_already_use=0
 		change_url=1
 ;;; Options
 Email=
 Notification=none
-;;; Upgrade options
-	; commit=CommitHash
-		name=Name and date of the commit.
-		manifest_arg=domain=DOMAIN&path=PATH&is_public=1

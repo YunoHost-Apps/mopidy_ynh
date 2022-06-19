@@ -26,11 +26,10 @@ app=$YNH_APP_INSTANCE_NAME
 
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 domain=$(ynh_app_setting_get --app=$app --key=domain)
-work_dir=$(ynh_app_setting_get --app=$app --key=work_dir)
+datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 
 # other variables
 media_dir="/home/yunohost.multimedia/share/Music"
-work_dir="/home/yunohost.app/$app"
 cmd_file="/usr/local/bin/mopidyctl"
 
 #=================================================
@@ -43,6 +42,12 @@ ynh_print_info --message="Declaring files to be backed up..."
 #=================================================
 
 ynh_backup --src_path="$final_path"
+
+#=================================================
+# BACKUP THE DATA DIR
+#=================================================
+
+ynh_backup --src_path="$datadir"
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION
@@ -61,8 +66,6 @@ ynh_backup --src_path="/etc/systemd/system/$app.service"
 #=================================================
 # BACKUP VARIOUS FILES
 #=================================================
-
-ynh_backup --src_path=$work_dir
 
 ynh_backup --src_path="$cmd_file"
 

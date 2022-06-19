@@ -5,6 +5,7 @@
 #=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
+
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -20,41 +21,18 @@ path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 port=$(ynh_app_setting_get --app=$app --key=port)
 mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
+datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 
 # other variables
 media_dir="/home/yunohost.multimedia/share/Music"
-work_dir="/home/yunohost.app/$app"
-conf_file="$final_path/$app.conf"
 cmd_file="/usr/local/bin/mopidyctl"
 
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-#ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
-#
-# N.B. : the followings setting migrations snippets are provided as *EXAMPLES*
-# of what you may want to do in some cases (e.g. a setting was not defined on
-# some legacy installs and you therefore want to initiaze stuff during upgrade)
-#
-
-# If mpd_port doesn't exist, create it
-if [ -z "$mpd_port" ]; then
-	mpd_port=0
-	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
-fi
-
-if [ $mpd_port -eq 0 ]; then
-	mpd_state="false"
-else
-	mpd_state="true"
-fi
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -80,12 +58,29 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 ynh_systemd_action --service_name=$app --action="stop"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+
+# If mpd_port doesn't exist, create it
+if [ -z "$mpd_port" ]; then
+	mpd_port=0
+	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
+fi
+
+if [ $mpd_port -eq 0 ]; then
+	mpd_state="false"
+else
+	mpd_state="true"
+fi
+
+#=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --groups="audio"
+ynh_system_user_create --username=$app --home_dir="$final_path" --use_shell --groups="audio"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -93,12 +88,20 @@ ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --
 
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
+	ynh_script_progression --message="Upgrading source files..."
 	myynh_install
 fi
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
+
+#=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --weight=11
+
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # NGINX CONFIGURATION
@@ -109,14 +112,26 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 ynh_add_nginx_config
 
 #=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=11
-
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
 # SPECIFIC UPGRADE
+#=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Updating a configuration file..."
+
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
+
+chmod 400 "$final_path/some_config_file"
+chown $app:$app "$final_path/some_config_file"
+
+#=================================================
+# PROVIDE ADDITIONAL SHELL COMAND 
+#=================================================
+ynh_script_progression --message="Provide additional shell comand..."
+
+ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
+
+chmod +x "$cmd_file"
+
 #=================================================
 # SETUP SYSTEMD
 #=================================================
@@ -126,14 +141,7 @@ ynh_script_progression --message="Upgrading systemd configuration..." --weight=3
 ynh_add_systemd_config
 
 #=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-
-cache_dir=$work_dir/cache
-data_dir=$work_dir/data 
-
-ynh_add_config --template="../conf/app.conf" --destination="$conf_file"
-
+# GENERIC FINALIZATION
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
@@ -158,15 +166,6 @@ ynh_systemd_action --service_name=$app --action="start"
 ynh_script_progression --message="Reloading NGINX web server..."
 
 ynh_systemd_action --service_name=nginx --action=reload
-
-#=================================================
-# PROVIDE ADDITIONAL SHELL COMAND 
-#=================================================
-ynh_script_progression --message="Provide additional shell comand..."
-
-ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
-
-chmod +x "$cmd_file"
 
 #=================================================
 # END OF SCRIPT
