@@ -61,14 +61,14 @@ port=$(ynh_find_port --port=6680)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
 if [ $mpd_port -eq 1 ]; then
-	mpd_port=$(ynh_find_port --port=6600)
+	mpd_port=6600
+	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
+	ynh_port_available --port=$mpd_port || ynh_die --message="Port $mpd_port is needs to be available for this app"
 	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
 	mpd_state="true"
 else
 	mpd_state="false"
 fi
-
-ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -109,9 +109,11 @@ ynh_add_nginx_config
 #=================================================
 # SPECIFIC SETUP
 #=================================================
-# ...
+# BUILD MULTIMEDIA
 #=================================================
+ynh_script_progression --message="Building multimedia directory..."
 
+media_dir="/home/yunohost.multimedia/share/Music"
 ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
 
 #=================================================

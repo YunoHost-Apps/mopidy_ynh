@@ -118,6 +118,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
+media_dir="/home/yunohost.multimedia/share/Music"
 ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
 
 chmod 400 "$final_path/some_config_file"
