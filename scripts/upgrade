@@ -127,8 +127,8 @@ ynh_script_progression --message="Updating a configuration file..."
 media_dir="/home/yunohost.multimedia/share/Music"
 ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
 
-chmod 400 "$final_path/some_config_file"
-chown $app:$app "$final_path/some_config_file"
+chmod 400 "$final_path/$app.conf"
+chown $app:$app "$final_path/$app.conf"
 
 #=================================================
 # PROVIDE ADDITIONAL SHELL COMMAND 
