@@ -13,6 +13,9 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
+ynh_clean_setup () {
+	ynh_clean_check_starting
+}
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
@@ -27,18 +30,12 @@ mpd_port=$YNH_APP_ARG_MPD_EXT
 
 app=$YNH_APP_INSTANCE_NAME
 
-# other variables
-final_path="/opt/yunohost/$app"
-media_dir="/home/yunohost.multimedia/share/Music"
-work_dir="/home/yunohost.app/$app"
-conf_file="$final_path/$app.conf"
-cmd_file="/usr/local/bin/mopidyctl"
-
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
 ynh_script_progression --message="Validating installation parameters..."
 
+final_path=/opt/yunohost/$app
 test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
 # Register (book) web path
@@ -65,13 +62,12 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 
 if [ $mpd_port -eq 1 ]; then
 	mpd_port=$(ynh_find_port --port=6600)
+	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
 	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
 	mpd_state="true"
 else
 	mpd_state="false"
 fi
-
-ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -86,17 +82,20 @@ ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Configuring system user..."
 
 # Create a system user
-ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --groups="audio"
+ynh_system_user_create --username=$app --home_dir="$final_path" --use_shell --groups="audio"
 
 #=================================================
 # INSTALL MOPIDY IN PYTHON ENVIRONMENT
 #=================================================
 ynh_script_progression --message="Install in Python environment..." --weight=30
 
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 myynh_install
 patch -u $final_path/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
 
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -107,15 +106,40 @@ ynh_script_progression --message="Configuring NGINX web server..."
 ynh_add_nginx_config
 
 #=================================================
-# CREATE YUNOHOST DIRECTORIES
+# SPECIFIC SETUP
 #=================================================
-ynh_script_progression --message="Creating YunoHost directories..."
+# BUILD MULTIMEDIA
+#=================================================
+ynh_script_progression --message="Building multimedia directory..."
 
+media_dir="/home/yunohost.multimedia/share/Music"
 ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
 
-mkdir -p "$work_dir/data"          # /home/yunohost.app/mopidy/data
-mkdir -p "$work_dir/cache"         # /home/yunohost.app/mopidy/cache
-chown -R $app: "$work_dir"
+#=================================================
+# CREATE DATA DIRECTORY
+#=================================================
+ynh_script_progression --message="Creating a data directory..."
+
+datadir=/home/yunohost.app/$app
+ynh_app_setting_set --app=$app --key=datadir --value=$datadir
+
+mkdir -p $datadir
+mkdir -p "$datadir/data"          # /home/yunohost.app/mopidy/data
+mkdir -p "$datadir/cache"         # /home/yunohost.app/mopidy/cache
+
+chmod 750 "$datadir"
+chmod -R o-rwx "$datadir"
+chown -R $app:www-data "$datadir"
+
+#=================================================
+# ADD A CONFIGURATION
+#=================================================
+ynh_script_progression --message="Adding a configuration file..."
+
+ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
+
+chmod 400 "$final_path/$app.conf"
+chown $app:$app "$final_path/$app.conf"
 
 #=================================================
 # SETUP SYSTEMD
@@ -123,43 +147,55 @@ chown -R $app: "$work_dir"
 ynh_script_progression --message="Configuring a systemd service..."
 
 # Create a dedicated systemd config
-
 ynh_add_systemd_config
 
 #=================================================
-# MODIFY A CONFIG FILE
+# PROVIDE ADDITIONAL SHELL COMMAND 
 #=================================================
-ynh_script_progression --message="Setup config file..."
+ynh_script_progression --message="Provide additional shell command..."
 
-cache_dir=$work_dir/cache
-data_dir=$work_dir/data 
+cmd_file="/usr/local/bin/mopidyctl"
+ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 
-ynh_add_config --template="../conf/app.conf" --destination="$conf_file"
+chmod +x "$cmd_file"
 
 #=================================================
-# STORE THE CONFIG FILE CHECKSUM
+# PROVIDE EXAMPLES
 #=================================================
 
-ynh_store_file_checksum --file="$conf_file"
+media_dir="/home/yunohost.multimedia/share/Music"
+
+# provide example m3u-playlist
+mkdir -p "$datadir/data/m3u/"
+cp -a ../sources/extra_files/radio_international.m3u "$datadir/data/m3u/radio_international.m3u"
+
+#provide example podcasts
+mkdir -p "$datadir/data/podcast"
+cp -a ../sources/extra_files/bbc.opml "$datadir/data/podcast/bbc.opml"
+
+#provide example local music file
+if [ "$(ls -A "$media_dir" 2> /dev/null)" == "" ]; then   # copy example.mp3 to mediadir if empty (for test purpose) 
+    cp -a ../sources/extra_files/Tryad_Beauty.mp3 "$media_dir"
+fi
+
+#=================================================
+# SCAN LOCAL MEDIA DIRECTORY
+#=================================================
+ynh_script_progression --message="Scan local media directory..."
+
+"$cmd_file" local scan  2>&1
 
 #=================================================
 # GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
-
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
 if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
 else
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+	yunohost service add $app --description="Mopidy music server"
 fi
 
 #=================================================
@@ -176,7 +212,10 @@ ynh_systemd_action --service_name=$app --action="start"
 ynh_script_progression --message="Configuring permissions..."
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]; then
+if [ $is_public -eq 1 ]
+then
+	# Everyone can access the app.
+	# The "main" permission is automatically created before the install script.
 	ynh_permission_update --permission="main" --add="visitors"
 fi
 
@@ -190,39 +229,6 @@ ynh_permission_url --permission="main" --add_url="$domain/local"
 ynh_script_progression --message="Reloading NGINX web server..."
 
 ynh_systemd_action --service_name=nginx --action=reload
-
-#=================================================
-# PROVIDE ADDITIONAL SHELL COMAND 
-#=================================================
-ynh_script_progression --message="Provide additional shell command..."
-
-ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
-
-chmod +x "$cmd_file"
-
-#=================================================
-# PROVIDE EXAMPLES
-#=================================================
-
-# provide example m3u-playlist
-mkdir -p "$work_dir/data/m3u/"
-cp -a ../sources/extra_files/radio_international.m3u "$work_dir/data/m3u/radio_international.m3u"
-
-#provide example podcasts
-mkdir -p "$work_dir/data/podcast"
-cp -a ../sources/extra_files/bbc.opml "$work_dir/data/podcast/bbc.opml"
-
-#provide example local music file
-if [ "$(ls -A "$media_dir" 2> /dev/null)" == "" ]; then   # copy example.mp3 to mediadir if empty (for test purpose) 
-    cp -a ../sources/extra_files/Tryad_Beauty.mp3 "$media_dir"
-fi
-
-#=================================================
-# SCAN LOCAL MEDIA DIRECTORY
-#=================================================
-ynh_script_progression --message="Scan local media directory..."
-
-"$cmd_file" local scan  2>&1
 
 #=================================================
 # END OF SCRIPT
