@@ -28,11 +28,7 @@ domain=$(ynh_app_setting_get --app=$app --key=domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
-
-# other variables
-media_dir="/home/yunohost.multimedia/share/Music"
-work_dir="/home/yunohost.app/$app"
-cmd_file="/usr/local/bin/mopidyctl"
+datadir=$(ynh_app_setting_get --app=$app --key=datadir)
 
 #=================================================
 # CHECK IF THE APP CAN BE RESTORED
@@ -42,31 +38,15 @@ ynh_script_progression --message="Validating restoration parameters..." --weight
 test ! -d $final_path \
 	|| ynh_die --message="There is already a directory: $final_path "
 
-# Check web path availability
-ynh_webpath_available $domain $path_url\
-	|| ynh_die --message="Path not available: ${domain}${path_url}"
-ynh_webpath_available $domain "/musicbox_webclient"\
-	|| ynh_die --message="Path not available: ${domain}/musicbox_webclient"
-ynh_webpath_available $domain "/mopidy"\
-	|| ynh_die --message="Path not available: ${domain}/mopidy"
-ynh_webpath_available $domain "/local"\
-	|| ynh_die --message="Path not available: ${domain}/local"
-
 #=================================================
 # STANDARD RESTORATION STEPS
-#=================================================
-# RESTORE THE NGINX CONFIGURATION
-#=================================================
-
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
-
 #=================================================
 # RECREATE THE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Recreating the dedicated system user..." --weight=1
 
 # Create the dedicated user (if not existing)
-ynh_system_user_create --username="$app" --home_dir="$final_path" --use_shell --groups="audio"
+ynh_system_user_create --username=$app --home_dir="$final_path" --use_shell --groups="audio"
 
 #=================================================
 # RESTORE THE APP MAIN DIR
@@ -75,18 +55,40 @@ ynh_script_progression --message="Restoring the app main directory..." --weight=
 
 ynh_restore_file --origin_path="$final_path"
 
-#=================================================
-# RESTORE USER RIGHTS
-#=================================================
-
-# Restore permissions on app files
-
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
 
 #=================================================
+# RESTORE THE DATA DIRECTORY
+#=================================================
+ynh_script_progression --message="Restoring the data directory..."
+
+ynh_restore_file --origin_path="$datadir" --not_mandatory
+
+mkdir -p $datadir
+
+chmod 750 "$datadir"
+chmod -R o-rwx "$datadir"
+chown -R $app:www-data "$datadir"
+
+#=================================================
 # SPECIFIC RESTORATION
+#=================================================
+# REINSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Reinstalling dependencies..." --weight=50
+
+# Define and install dependencies
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
+# RESTORE THE NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Restoring the NGINX web server configuration..."
+
+ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+
 #=================================================
 # OPEN PORT
 #=================================================
@@ -97,12 +99,11 @@ if [ $mpd_port -ne 0 ]; then
 fi
 
 #=================================================
-# REINSTALL DEPENDENCIES
+# RESTORE VARIOUS FILES
 #=================================================
-ynh_script_progression --message="Reinstalling dependencies..." --weight=50
+ynh_script_progression --message="Restoring various files..."
 
-# Define and install dependencies
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+ynh_restore_file --origin_path="/usr/local/bin/mopidyctl"     # /usr/local/bin/mopidyctl
 
 #=================================================
 # RESTORE SYSTEMD
@@ -118,18 +119,10 @@ systemctl enable $app.service --quiet
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log" --needs_exposed_ports=$mpd_port
+	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
 else
-	yunohost service add $app --description="Mopidy music server" --log="/var/log/$app/$app.log"
+	yunohost service add $app --description="Mopidy music server"
 fi
-
-#=================================================
-# RESTORE VARIOUS FILES
-#=================================================
-
-ynh_restore_file --origin_path="$work_dir"     # /home/yunohost.app/mopidy
-
-ynh_restore_file --origin_path="$cmd_file"     # /usr/local/bin/mopidyctl
 
 #=================================================
 # START SYSTEMD SERVICE

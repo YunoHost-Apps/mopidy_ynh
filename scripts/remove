@@ -17,12 +17,10 @@ ynh_script_progression --message="Loading installation settings..." --weight=4
 app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
-mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
 port=$(ynh_app_setting_get --app=$app --key=port)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
+mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
 
-# other variables
-cmd_file="/usr/local/bin/mopidyctl"
 #=================================================
 # STANDARD REMOVE
 #=================================================
@@ -45,14 +43,6 @@ ynh_script_progression --message="Stopping and removing the systemd service..." 
 ynh_remove_systemd_config
 
 #=================================================
-# REMOVE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Removing dependencies..." --weight=42
-
-# Remove metapackage and its dependencies
-ynh_remove_app_dependencies
-
-#=================================================
 # REMOVE APP MAIN DIR
 #=================================================
 ynh_script_progression --message="Removing app main directory..." --weight=2
@@ -69,6 +59,14 @@ ynh_script_progression --message="Removing NGINX web server configuration..." --
 ynh_remove_nginx_config
 
 #=================================================
+# REMOVE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Removing dependencies..." --weight=42
+
+# Remove metapackage and its dependencies
+ynh_remove_app_dependencies
+
+#=================================================
 # CLOSE A PORT
 #=================================================
 
@@ -77,14 +75,15 @@ then
 	ynh_script_progression --message="Closing port $mpd_port..." --weight=1
 	ynh_exec_warn_less yunohost firewall disallow TCP $mpd_port
 fi
+
 #=================================================
 # SPECIFIC REMOVE
 #=================================================
 # REMOVE VARIOUS FILES
 #=================================================
+ynh_script_progression --message="Removing various files..."
 
-# Remove a cron file
-ynh_secure_remove --file="$cmd_file"
+ynh_secure_remove --file="/usr/local/bin/mopidyctl"
 
 #=================================================
 # GENERIC FINALIZATION
