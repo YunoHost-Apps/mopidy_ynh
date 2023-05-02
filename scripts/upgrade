@@ -12,16 +12,16 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=2
+#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=2
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-port=$(ynh_app_setting_get --app=$app --key=port)
-mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
+#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
+#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
+#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
+#REMOVEME? port=$(ynh_app_setting_get --app=$app --key=port)
+#REMOVEME? mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
+#REMOVEME? data_dir=$(ynh_app_setting_get --app=$app --key=data_dir)
 
 # other variables
 media_dir="/home/yunohost.multimedia/share/Music"
@@ -37,16 +37,16 @@ upgrade_type=$(ynh_check_app_version_changed)
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=7
+#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=7
 
 # Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
+#REMOVEME? ynh_backup_before_upgrade
+#REMOVEME? ynh_clean_setup () {
 	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
+#REMOVEME? 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -65,7 +65,7 @@ ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 # If mpd_port doesn't exist, create it
 if [ -z "$mpd_port" ]; then
 	mpd_port=0
-	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
+#REMOVEME? 	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
 fi
 
 if [ $mpd_port -eq 0 ]; then
@@ -74,19 +74,19 @@ else
 	mpd_state="true"
 fi
 
-# If datadir doesn't exist, create it
-if [ -z "$datadir" ]; then
-	datadir=/home/yunohost.app/$app
-	ynh_app_setting_set --app=$app --key=datadir --value=$datadir
+# If data_dir doesn't exist, create it
+if [ -z "$data_dir" ]; then
+	data_dir=/home/yunohost.app/$app
+#REMOVEME? 	ynh_app_setting_set --app=$app --key=data_dir --value=$data_dir
 fi
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
+#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path" --use_shell --groups="audio"
+#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir" --use_shell --groups="audio"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -98,16 +98,16 @@ then
 	myynh_install
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=11
+#REMOVEME? ynh_script_progression --message="Upgrading dependencies..." --weight=11
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+#REMOVEME? ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # NGINX CONFIGURATION
@@ -125,10 +125,10 @@ ynh_add_nginx_config
 ynh_script_progression --message="Updating a configuration file..."
 
 media_dir="/home/yunohost.multimedia/share/Music"
-ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
+ynh_add_config --template="../conf/app.conf" --destination="$install_dir/$app.conf"
 
-chmod 400 "$final_path/$app.conf"
-chown $app:$app "$final_path/$app.conf"
+chmod 400 "$install_dir/$app.conf"
+chown $app:$app "$install_dir/$app.conf"
 
 #=================================================
 # PROVIDE ADDITIONAL SHELL COMMAND 
@@ -170,9 +170,9 @@ ynh_systemd_action --service_name=$app --action="start"
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..."
+#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..."
 
-ynh_systemd_action --service_name=nginx --action=reload
+#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
