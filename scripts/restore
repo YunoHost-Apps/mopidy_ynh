@@ -56,11 +56,7 @@ systemctl enable $app.service --quiet
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-if [ $port_mpd -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$port_mpd
-else
-	yunohost service add $app --description="Mopidy music server"
-fi
+yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$port_mpd
 
 #=================================================
 # START SYSTEMD SERVICE

@@ -99,11 +99,7 @@ ynh_script_progression --message="Scan local media directory..."
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
-else
-	yunohost service add $app --description="Mopidy music server"
-fi
+yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$port_mpd
 
 #=================================================
 # START SYSTEMD SERVICE
