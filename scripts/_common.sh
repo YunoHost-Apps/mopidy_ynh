@@ -22,6 +22,7 @@ myynh_install() {
 	ynh_exec_as $app $install_dir/env/bin/pip install --upgrade --no-cache-dir pip
 
 	# to make Gstreamer visible in Python environment
+	$install_dir/env/bin/python3 -m pip install wheel
 	$install_dir/env/bin/python3 -m pip install vext
 	$install_dir/env/bin/python3 -m pip install --no-binary=:all: vext.gi
 
