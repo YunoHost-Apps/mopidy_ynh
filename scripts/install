@@ -10,90 +10,13 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
-#=================================================
-
-#REMOVEME? ynh_clean_setup () {
-	ynh_clean_check_starting
-}
-# Exit if an error occurs during the execution of the script
-#REMOVEME? ynh_abort_if_errors
-
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-#REMOVEME? domain=$YNH_APP_ARG_DOMAIN
-#REMOVEME? path=$YNH_APP_ARG_PATH
-#REMOVEME? is_public=$YNH_APP_ARG_IS_PUBLIC
-#REMOVEME? mpd_port=$YNH_APP_ARG_MPD_EXT
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
-
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Validating installation parameters..."
-
-#REMOVEME? install_dir=/opt/yunohost/$app
-#REMOVEME? test ! -e "$install_dir" || ynh_die --message="This path already contains a folder"
-
-# Register (book) web path
-#REMOVEME? ynh_webpath_register --app=$app --domain=$domain --path=$path
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-#REMOVEME? ynh_script_progression --message="Storing installation settings..."
-
-#REMOVEME? ynh_app_setting_set --app=$app --key=domain --value=$domain
-#REMOVEME? ynh_app_setting_set --app=$app --key=path --value=$path
-
-#=================================================
-# STANDARD MODIFICATIONS
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-#REMOVEME? ynh_script_progression --message="Finding an available port..."
-
-# Find an available port
-#REMOVEME? port=$(ynh_find_port --port=6680)
-#REMOVEME? ynh_app_setting_set --app=$app --key=port --value=$port
-
-if [ $mpd_port -eq 1 ]; then
-#REMOVEME? 	mpd_port=$(ynh_find_port --port=6600)
-#REMOVEME? 	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
-	ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $mpd_port
-	mpd_state="true"
-else
-	mpd_state="false"
-fi
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression --message="Installing dependencies..." --weight=30
-
-#REMOVEME? ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-#REMOVEME? ynh_script_progression --message="Configuring system user..."
-
-# Create a system user
-#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir" --use_shell --groups="audio"
-
-#=================================================
 # INSTALL MOPIDY IN PYTHON ENVIRONMENT
 #=================================================
 ynh_script_progression --message="Install in Python environment..." --weight=30
 
-#REMOVEME? ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 myynh_install
 patch -u $install_dir/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
 
-chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 
@@ -114,22 +37,6 @@ ynh_script_progression --message="Building multimedia directory..."
 
 media_dir="/home/yunohost.multimedia/share/Music"
 ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
-
-#=================================================
-# CREATE DATA DIRECTORY
-#=================================================
-ynh_script_progression --message="Creating a data directory..."
-
-#REMOVEME? data_dir=/home/yunohost.app/$app
-#REMOVEME? ynh_app_setting_set --app=$app --key=data_dir --value=$data_dir
-
-mkdir -p $data_dir
-mkdir -p "$data_dir/data"          # /home/yunohost.app/mopidy/data
-mkdir -p "$data_dir/cache"         # /home/yunohost.app/mopidy/cache
-
-chmod 750 "$data_dir"
-chmod -R o-rwx "$data_dir"
-chown -R $app:www-data "$data_dir"
 
 #=================================================
 # ADD A CONFIGURATION
@@ -205,30 +112,6 @@ ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start"
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-#REMOVEME? ynh_script_progression --message="Configuring permissions..."
-
-# Make app public if necessary
-#REMOVEME? if [ $is_public -eq 1 ]
-then
-	# Everyone can access the app.
-	# The "main" permission is automatically created before the install script.
-#REMOVEME? 	ynh_permission_update --permission="main" --add="visitors"
-fi
-
-ynh_permission_url --permission="main" --add_url="$domain/mopidy/ws"
-ynh_permission_url --permission="main" --add_url="$domain/musicbox_webclient"
-ynh_permission_url --permission="main" --add_url="$domain/local"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..."
-
-#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
