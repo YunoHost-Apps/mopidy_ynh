@@ -5,23 +5,24 @@ It shall NOT be edited by hand.
 
 # Mopidy pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+
 [![Installer Mopidy avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Mopidy rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Mopidy rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming
 
 **Version incluse :** 3.2.0~ynh2
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Mopidy](./doc/screenshots/mopidy_screenshot1.png)
+![Capture d’écran de Mopidy](./doc/screenshots/mopidy_screenshot1.png)
 
 ## Avertissements / informations importantes
 
@@ -42,10 +43,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://www.mopidy.com>
-* Documentation officielle de l'admin : <https://docs.mopidy.com/en/latest>
-* Dépôt de code officiel de l'app : <https://github.com/mopidy/mopidy>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_mopidy>
+* Site officiel de l’app : <https://www.mopidy.com>
+* Documentation officielle de l’admin : <https://docs.mopidy.com/en/latest>
+* Dépôt de code officiel de l’app : <https://github.com/mopidy/mopidy>
+* YunoHost Store: <https://apps.yunohost.org/app/mopidy>
 * Signaler un bug : <https://github.com/YunoHost-Apps/mopidy_ynh/issues>
 
 ## Informations pour les développeurs
@@ -60,4 +61,4 @@ ou
 sudo yunohost app upgrade mopidy -u https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>

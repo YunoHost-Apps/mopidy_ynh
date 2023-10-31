@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Mopidy for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Working status](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Working status](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+
 [![Install Mopidy with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -45,7 +46,7 @@ Play music, podcasts and radio programs from local disk and various streaming se
 * Official app website: <https://www.mopidy.com>
 * Official admin documentation: <https://docs.mopidy.com/en/latest>
 * Upstream app code repository: <https://github.com/mopidy/mopidy>
-* YunoHost documentation for this app: <https://yunohost.org/app_mopidy>
+* YunoHost Store: <https://apps.yunohost.org/app/mopidy>
 * Report a bug: <https://github.com/YunoHost-Apps/mopidy_ynh/issues>
 
 ## Developer info
