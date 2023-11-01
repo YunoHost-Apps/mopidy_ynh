@@ -34,16 +34,16 @@ myynh_install() {
  	$final_path/env/bin/python3 -m pip install --ignore-installed --no-cache pygobject
 
 	# install essential packages
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local
- 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MPD
-	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YTMusic
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-RadioNet
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes
-#	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy==$(ynh_app_upstream_version)
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-local==3.2.1
+ 	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MPD==3.3.0
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-MusicBox-Webclient==3.1.0
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YouTube==3.7
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-YTMusic==0.3.8
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-RadioNet==0.2.2
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast==3.0.1
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-Podcast-iTunes==3.0.1
+	ynh_exec_as $app $final_path/env/bin/python3 -m pip install --no-cache-dir Mopidy-SoundCloud==3.0.2
 	)
 }
 
