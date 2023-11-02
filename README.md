@@ -18,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Play music, podcasts and radio programs from local disk and various streaming services
 
-**Shipped version:** 3.4.2~ynh2
+**Shipped version:** 3.4.2~ynh3
 
 ## Screenshots
 

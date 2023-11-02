@@ -18,7 +18,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming
 
-**Version incluse :** 3.4.2~ynh2
+**Version incluse :** 3.4.2~ynh3
 
 ## Captures d’écran
 
