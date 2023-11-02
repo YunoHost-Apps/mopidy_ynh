@@ -6,7 +6,7 @@
         "en": "Play music, podcasts and radio programs from local disk and various streaming services",
         "fr": "Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming"
     },
-    "version": "3.4.2~ynh2",
+    "version": "3.4.2~ynh3",
     "url": "https://www.mopidy.com",
     "upstream": {
         "license": "Apache-2.0",
