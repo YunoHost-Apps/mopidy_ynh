@@ -24,7 +24,7 @@
 		"email": "cyp@rouquin.me"
 	},
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.2"
     },
     "multi_instance": false,
     "services": [
@@ -47,7 +47,7 @@
                 "type": "boolean",
                 "help": {
                     "en": "Public app can be used by anonymous visitors.",
-                    "fr": "L'application publique peut être utilisée par des visiteurs anonymes "
+                    "fr": "L'application publique peut être utilisée par des visiteurs anonymes."
                 },
                 "default": false
             },
