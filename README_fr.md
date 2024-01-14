@@ -16,7 +16,10 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 ## Vue d’ensemble
 
-Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming
+Mopidy is an extensible music server written in Python.
+
+Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more. You edit the playlist from any phone, tablet, or computer using a variety of MPD and web clients.
+
 
 **Version incluse :** 3.4.2~ynh4
 
