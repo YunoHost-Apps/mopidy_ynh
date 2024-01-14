@@ -59,10 +59,17 @@ ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd
 chmod +x "$cmd_file"
 
 #=================================================
+# SPECIFIC SETUP
+#=================================================
+# BUILD MULTIMEDIA
+#=================================================
+ynh_script_progression --message="Building multimedia directory..."
+
+ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
+
+#=================================================
 # PROVIDE EXAMPLES
 #=================================================
-
-media_dir="/home/yunohost.multimedia/share/Music"
 
 # provide example m3u-playlist
 mkdir -p "$data_dir/data/m3u/"
@@ -76,17 +83,6 @@ cp -a ../sources/extra_files/bbc.opml "$data_dir/data/podcast/bbc.opml"
 if [ "$(ls -A "$media_dir" 2> /dev/null)" == "" ]; then   # copy example.mp3 to mediadir if empty (for test purpose)
     cp -a ../sources/extra_files/Tryad_Beauty.mp3 "$media_dir"
 fi
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-# BUILD MULTIMEDIA
-#=================================================
-ynh_script_progression --message="Building multimedia directory..."
-
-media_dir="/home/yunohost.multimedia/share/Music"
-ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
-
 
 #=================================================
 # SYSTEM CONFIGURATION
