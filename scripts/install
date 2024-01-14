@@ -30,7 +30,7 @@ ynh_script_progression --message="Setting up source files..." --weight=1
 ynh_script_progression --message="Install in Python environment..." --weight=30
 
 _mopidy_install
-# patch -u $install_dir/env/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
+# patch -u $install_dir/venv/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
