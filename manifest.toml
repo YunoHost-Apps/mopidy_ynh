@@ -1,0 +1,93 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "mopidy"
+name = "Mopidy"
+description.en = "Play music, podcasts and radio programs from local disk and various streaming services"
+description.fr = "Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming"
+
+version = "3.4.2~ynh4"
+
+maintainers = ["siwinter"]
+
+[upstream]
+license = "Apache-2.0"
+website = "https://www.mopidy.com"
+admindoc = "https://docs.mopidy.com/en/latest"
+code = "https://github.com/mopidy/mopidy"
+cpe = "???" # FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is sort of a standard id for applications defined by the NIST. In particular, Yunohost may use this is in the future to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here: https://nvd.nist.gov/products/cpe/search. For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
+fund = "???" # FIXME: optional but recommended (or remove if irrelevant / not applicable). This is meant to be an URL where people can financially support this app, especially when its development is based on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all" # FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
+multi_instance = false
+ldap = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "sso" key : the "ldap" key corresponds to wether or not a user *can* login on the app using its YunoHost credentials.
+sso = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "ldap" key : the "sso" key corresponds to wether or not a user is *automatically logged-in* on the app when logged-in on the YunoHost portal.
+disk = "50M" # FIXME: replace with an **estimate** minimum disk requirement. e.g. 20M, 400M, 1G, ...
+ram.build = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/mopidy"
+
+    [install.init_main_permission]
+    help.en = "Public app can be used by anonymous visitors."
+    help.fr = "L'application publique peut être utilisée par des visiteurs anonymes."
+    type = "group"
+    default = false
+
+    [install.mpd_ext]
+    ask.en = "Activate MPD extension (this will open port 6600)"
+    ask.fr = "Activer l'extension MPD (cela ouvrira le port 6600)"
+    type = "boolean"
+    default = false
+
+[resources]
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.data_dir]
+    subdirs = ["data", "cache"]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.ports]
+    main.default = 6680
+    mpd.default = 6600
+
+    [resources.apt]
+    packages = [
+        "acl",
+        "build-essential",
+        "debconf",
+        "gir1.2-gst-plugins-base-1.0",
+        "gir1.2-gstreamer-1.0",
+        "git",
+        "gstreamer1.0-alsa",
+        "gstreamer1.0-plugins-good",
+        "gstreamer1.0-plugins-ugly",
+        "gstreamer1.0-pulseaudio",
+        "gstreamer1.0-tools",
+        "libcairo2-dev",
+        "libgirepository1.0-dev",
+        "lsb-base",
+        "postgresql-contrib",
+        "postgresql",
+        "python3-dev",
+        "python3-gst-1.0",
+        "python3-pip",
+        "python3-pkg-resources",
+        "python3-pykka",
+        "python3-requests",
+        "python3-tornado",
+        "python3-venv",
+    ]

@@ -10,43 +10,13 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
+# STANDARD UPGRADE STEPS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=2
-
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-port=$(ynh_app_setting_get --app=$app --key=port)
-mpd_port=$(ynh_app_setting_get --app=$app --key=mpd_port)
-datadir=$(ynh_app_setting_get --app=$app --key=datadir)
-
-# other variables
-media_dir="/home/yunohost.multimedia/share/Music"
-cmd_file="/usr/local/bin/mopidyctl"
-
+# ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-# CHECK VERSION
-#=================================================
-ynh_script_progression --message="Checking version..."
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=7
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+ynh_secure_remove "$install_dir/env"
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -55,108 +25,59 @@ ynh_abort_if_errors
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="stop"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
-# If mpd_port doesn't exist, create it
-if [ -z "$mpd_port" ]; then
-	mpd_port=0
-	ynh_app_setting_set --app=$app --key=mpd_port --value=$mpd_port
-fi
-
-if [ $mpd_port -eq 0 ]; then
-	mpd_state="false"
-else
-	mpd_state="true"
-fi
-
-# If datadir doesn't exist, create it
-if [ -z "$datadir" ]; then
-	datadir=/home/yunohost.app/$app
-	ynh_app_setting_set --app=$app --key=datadir --value=$datadir
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path" --use_shell --groups="audio"
+ynh_systemd_action --service_name="$app" --action="stop"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression --message="Upgrading source files..."
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-	ynh_script_progression --message="Upgrading source files..."
-	myynh_install
-fi
+myynh_install
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R "$app:www-data" "$install_dir"
 
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=11
-
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=2
-
-# Create a dedicated NGINX config
-ynh_add_nginx_config
-
-#=================================================
-# SPECIFIC UPGRADE
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression --message="Updating a configuration file..."
 
-ynh_add_config --template="../conf/app.conf" --destination="$final_path/$app.conf"
+ynh_add_config --template="../conf/app.conf" --destination="$install_dir/$app.conf"
 
-chmod 400 "$final_path/$app.conf"
-chown $app:$app "$final_path/$app.conf"
+chmod 400 "$install_dir/$app.conf"
+chown "$app:$app" "$install_dir/$app.conf"
 
 #=================================================
-# PROVIDE ADDITIONAL SHELL COMMAND 
+# PROVIDE ADDITIONAL SHELL COMMAND
 #=================================================
 ynh_script_progression --message="Provide additional shell comand..."
 
 ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
-
 chmod +x "$cmd_file"
 
 #=================================================
-# SETUP SYSTEMD
+# REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=3
+ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-if [ $mpd_port -ne 0 ]; then
-	yunohost service add $app --description="Mopidy music server" --needs_exposed_ports=$mpd_port
+if [ "$mpd_ext" -eq 1 ]; then
+    yunohost service add "$app" --description="Mopidy music server" --needs_exposed_ports="$port_mpd"
 else
-	yunohost service add $app --description="Mopidy music server"
+    yunohost service add "$app" --description="Mopidy music server"
+fi
+
+#=================================================
+# OPEN PORT
+#=================================================
+if [ "$mpd_ext" -eq 1 ]; then
+    ynh_script_progression --message="Opening MPD-port $port_mpd..." --weight=1
+    ynh_exec_warn_less yunohost firewall allow --no-upnp TCP "$port_mpd"
 fi
 
 #=================================================
@@ -164,14 +85,7 @@ fi
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..."
-
-ynh_systemd_action --service_name=nginx --action=reload
+ynh_systemd_action --service_name="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
