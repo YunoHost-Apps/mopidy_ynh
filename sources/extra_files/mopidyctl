@@ -1,9 +1,9 @@
 #!/bin/sh
 
 SELF=$(basename $0)
-DAEMON="__FINAL_PATH__/env/bin/mopidy"
+DAEMON="__INSTALL_DIR__/venv/bin/mopidy"
 DAEMON_USER="__APP__"
-CONFIG_FILES="__FINAL_PATH__/__APP__.conf"
+CONFIG_FILES="__INSTALL_DIR__/__APP__.conf"
 CMD="$DAEMON --config $CONFIG_FILES $@"
 
 if [ $# -eq 0 ]; then

@@ -16,30 +16,16 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Play music, podcasts and radio programs from local disk and various streaming services
+Mopidy is an extensible music server written in Python.
 
-**Shipped version:** 3.4.2~ynh3
+Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more. You edit the playlist from any phone, tablet, or computer using a variety of MPD and web clients.
+
+
+**Shipped version:** 3.4.2~ynh4
 
 ## Screenshots
 
 ![Screenshot of Mopidy](./doc/screenshots/mopidy_screenshot1.png)
-
-## Disclaimers / important information
-
-* This installation is shipped with various extensions:
-    * [MusicBox-Webclient](https://mopidy.com/ext/musicbox-webclient/) to control mopidy from your web browser
-    * [local](https://mopidy.com/ext/local/) to make your private music collection on `/home/yunohost.multimedia/share/Music/` browseable and searchable
-    * [YouTube](https://pypi.org/project/Mopidy-YouTube/) to play sound from YouTube
-    * [YTMusic](https://music.youtube.com/) to access Google’s streaming music named [YouTube Music](https://music.youtube.com/) 
-    * [Podcast-iTunes](https://mopidy.com/ext/podcast-itunes/) to search and browse podcasts from the Apple iTunes Store.
-    * [RadioNet](https://mopidy.com/ext/radionet/) to play radio channels from the [radio.net](https://www.radio.net/).
-    * [Podcast](https://mopidy.com/ext/podcast/) to browse RSS feeds of podcasts and stream the episodes.
-    * [Soundcloud](https://pypi.org/project/Mopidy-SoundCloud/) to play music from the [SoundCloud](https://soundcloud.com/) service \([authentication token](https://pypi.org/project/Mopidy-SoundCloud/) needed\).
-    * [MPD](https://mopidy.com/ext/mpd/) can be activated in order to use apps that control mopidy via this protocol. (This will open port 6600.) 
-* All streams are played on the servers local audio hardware. The web interface is only a kind of remote control. Threrefore it should not be used with VPS or other servers that have no real audio hardware
-* To rebuild the database of your local music collection enter `sudo mopidyctl local scan`.
-* To list current settings enter `sudo mopidyctl config`.
-* Edit the file `/opt/yunohost/mopidy/mopidy.conf` to adjust Mopidy's configuration.
 
 ## Documentation and resources
 
