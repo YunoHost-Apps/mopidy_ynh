@@ -22,6 +22,8 @@ _mopidy_install() {
 
     ynh_exec_as "$app" "$venvpy" -m pip install --upgrade --no-cache-dir pip
 
+    ynh_exec_as "$app" "$venvpy" -m pip install PyGObject
+
     # install essential packages
     ynh_exec_as "$app" "$venvpy" -m pip install --no-cache-dir \
         Mopidy=="$(ynh_app_upstream_version)" \
