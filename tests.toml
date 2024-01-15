@@ -8,5 +8,4 @@ test_format = 1.0
 
     args.superuser = "package_checker"
 
-    test_upgrade_from.bc421d01d57a273a59287cf7500e94a89de0abed.name = "3.1.1~ynh2"
-    test_upgrade_from.31c5de684273794e4f4837d5dccc5a663ce9fb45.name = "3.2.0~ynh1"
+    test_upgrade_from.1c884196.name = "3.2.0~ynh2"
