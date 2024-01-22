@@ -18,6 +18,17 @@ ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 ynh_secure_remove "$install_dir/env"
 
+# Legacy settings
+if [ -n "${mpd_port:-}" ]; then
+    if [ "$mpd_port" -eq 0 ]; then
+        mpd_ext=0
+    else
+        mpd_ext=1
+    fi
+    ynh_app_setting_set --app="$app" --key=mpd_ext --value="$mpd_ext"
+    ynh_app_setting_delete --app="$app" --key=mpd_port
+fi
+
 if [ -z "${mpd_state:-}" ]; then
     mpd_state="${boolstr[mpd_ext]}"
     ynh_app_setting_set --app="$app" --key=mpd_state --value="$mpd_state"
