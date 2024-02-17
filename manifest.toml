@@ -50,6 +50,7 @@ ram.runtime = "50M"
 [resources]
     [resources.sources.main]
     url = "http://none"
+    sha256 = "none"
     prefetch = false
     autoupdate.strategy = "latest_github_release"
 
