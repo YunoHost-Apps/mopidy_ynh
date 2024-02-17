@@ -7,7 +7,7 @@ name = "Mopidy"
 description.en = "Play music, podcasts and radio programs from local disk and various streaming services"
 description.fr = "Écouter de la musique, des podcasts et des programmes radio depuis le disque local et divers services de streaming"
 
-version = "3.4.2~ynh4"
+version = "v3.4.2~ynh1"
 
 maintainers = ["siwinter"]
 
@@ -49,8 +49,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "http://none"
-    sha256 = "none"
+    url = "https://github.com/mopidy/mopidy/archive/refs/tags/v3.4.2.tar.gz"
+    sha256 = "5457b233f5aba0f47d3e087c29306cc209449290342b7f71a5c6bde856bcf570"
     prefetch = false
     autoupdate.strategy = "latest_github_release"
 
