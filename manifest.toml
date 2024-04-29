@@ -39,7 +39,7 @@ ram.runtime = "50M"
     help.en = "Public app can be used by anonymous visitors."
     help.fr = "L'application publique peut être utilisée par des visiteurs anonymes."
     type = "group"
-    default = false
+    default = "visitors"
 
     [install.mpd_ext]
     ask.en = "Activate MPD extension (this will open port 6600)"
