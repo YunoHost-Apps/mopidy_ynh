@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Mopidy YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/mopidy)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/mopidy)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/mopidy)
 
 [![Instalatu Mopidy YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
@@ -21,7 +23,7 @@ Mopidy is an extensible music server written in Python.
 Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more. You edit the playlist from any phone, tablet, or computer using a variety of MPD and web clients.
 
 
-**Paketatutako bertsioa:** 3.4.2~ynh5
+**Paketatutako bertsioa:** 3.4.2~ynh6
 
 ## Pantaila-argazkiak
 
@@ -39,7 +41,7 @@ Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and 
 
 Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
-`testing` abarra probatzeko, ondorengoa egin:
+`testing` abarra probatzeko, honakoa egin:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing --debug

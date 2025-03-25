@@ -3,9 +3,11 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# Mopidy para Yunohost
+# Mopidy para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/mopidy.svg)](https://dash.yunohost.org/appci/app/mopidy) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/mopidy.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/mopidy.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/mopidy)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+![Estado funcional](https://apps.yunohost.org/badge/state/mopidy)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/mopidy)
 
 [![Instalar Mopidy con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mopidy)
 
@@ -21,7 +23,7 @@ Mopidy is an extensible music server written in Python.
 Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and more. You edit the playlist from any phone, tablet, or computer using a variety of MPD and web clients.
 
 
-**Versión actual:** 3.4.2~ynh5
+**Versión actual:** 3.4.2~ynh6
 
 ## Capturas
 
@@ -37,7 +39,7 @@ Mopidy plays music from local disk, Spotify, SoundCloud, Google Play Music, and 
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/mopidy_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
