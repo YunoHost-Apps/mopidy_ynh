@@ -61,15 +61,15 @@ ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
 
 # provide example m3u-playlist
 mkdir -p "$data_dir/data/m3u/"
-cp -a ../sources/radio_international.m3u "$data_dir/data/m3u/radio_international.m3u"
+cp -a ../sources/extra_files/radio_international.m3u "$data_dir/data/m3u/radio_international.m3u"
 
 #provide example podcasts
 mkdir -p "$data_dir/data/podcast"
-cp -a ../sources/bbc.opml "$data_dir/data/podcast/bbc.opml"
+cp -a ../sources/extra_files/bbc.opml "$data_dir/data/podcast/bbc.opml"
 
 #provide example local music file
 if [ "$(ls -A "$media_dir" 2> /dev/null)" == "" ]; then   # copy example.mp3 to mediadir if empty (for test purpose)
-    cp -a ../sources/Tryad_Beauty.mp3 "$media_dir"
+    cp -a ../sources/extra_files/Tryad_Beauty.mp3 "$media_dir"
 fi
 
 #=================================================
