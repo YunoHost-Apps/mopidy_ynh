@@ -42,7 +42,7 @@ chown "$app:$app" "$install_dir/$app.conf"
 #=================================================
 ynh_script_progression "Provide additional shell command..."
 
-ynh_config_add --template="../sources/mopidyctl" --destination="$cmd_file"
+ynh_config_add --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 
 chmod +x "$cmd_file"
 
