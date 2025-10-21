@@ -13,7 +13,7 @@ media_dir="/home/yunohost.multimedia/share/Music"
 _mopidy_install() {
     ynh_exec_as_app python3 -m venv "$install_dir/venv"
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade --no-cache-dir pip
-    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" --upgrade PyGObject==3.50.0
+    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade PyGObject==3.50.0
 
     # install essential packages
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --no-cache-dir \
