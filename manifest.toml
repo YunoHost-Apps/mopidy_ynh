@@ -18,7 +18,8 @@ admindoc = "https://docs.mopidy.com/en/latest"
 code = "https://github.com/mopidy/mopidy"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.18"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
 ldap = false
@@ -73,8 +74,9 @@ ram.runtime = "50M"
         "acl",
         "build-essential",
         "debconf",
-        "gir1.2-gst-plugins-base-1.0",
+        "gir1.2-gst-plugins-base-1.0,
         "gir1.2-gstreamer-1.0",
+        "girepository-2.0",
         "git",
         "gstreamer1.0-alsa",
         "gstreamer1.0-plugins-good",
