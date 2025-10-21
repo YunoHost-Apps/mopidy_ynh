@@ -74,7 +74,7 @@ ram.runtime = "50M"
         "acl",
         "build-essential",
         "debconf",
-        "gir1.2-gst-plugins-base-1.0,
+        "gir1.2-gst-plugins-base-1.0",
         "gir1.2-gstreamer-1.0",
         "girepository-2.0",
         "git",
