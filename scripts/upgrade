@@ -1,22 +1,14 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+ynh_script_progression "Ensuring downward compatibility..."
 
-ynh_secure_remove "$install_dir/env"
+ynh_safe_rm "$install_dir/env"
 
 # Legacy settings
 if [ -n "${mpd_port:-}" ]; then
@@ -25,41 +17,35 @@ if [ -n "${mpd_port:-}" ]; then
     else
         mpd_ext=1
     fi
-    ynh_app_setting_set --app="$app" --key=mpd_ext --value="$mpd_ext"
-    ynh_app_setting_delete --app="$app" --key=mpd_port
+    ynh_app_setting_set --key=mpd_ext --value="$mpd_ext"
+    ynh_app_setting_delete --key=mpd_port
 fi
 
 if [ -z "${mpd_state:-}" ]; then
     mpd_state="${boolstr[mpd_ext]}"
-    ynh_app_setting_set --app="$app" --key=mpd_state --value="$mpd_state"
+    ynh_app_setting_set --key=mpd_state --value="$mpd_state"
 fi
 
 #=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="stop"
+ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..."
+ynh_script_progression "Upgrading source files..."
 
 _mopidy_install
-
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R "$app:www-data" "$install_dir"
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..."
+ynh_script_progression "Updating configuration..."
 
-ynh_add_config --template="../conf/app.conf" --destination="$install_dir/$app.conf"
+ynh_config_add --template="app.conf" --destination="$install_dir/$app.conf"
 
 chmod 400 "$install_dir/$app.conf"
 chown "$app:$app" "$install_dir/$app.conf"
@@ -67,21 +53,21 @@ chown "$app:$app" "$install_dir/$app.conf"
 #=================================================
 # PROVIDE ADDITIONAL SHELL COMMAND
 #=================================================
-ynh_script_progression --message="Provide additional shell comand..."
+ynh_script_progression "Provide additional shell comand..."
 
-ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
+ynh_config_add --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 chmod +x "$cmd_file"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 if [ "$mpd_ext" -eq 1 ]; then
     yunohost service add "$app" --description="Mopidy music server" --needs_exposed_ports="$port_mpd"
 else
@@ -92,19 +78,19 @@ fi
 # OPEN PORT
 #=================================================
 if [ "$mpd_ext" -eq 1 ]; then
-    ynh_script_progression --message="Opening MPD-port $port_mpd..." --weight=1
-    ynh_exec_warn_less yunohost firewall allow --no-upnp TCP "$port_mpd"
+    ynh_script_progression "Opening MPD-port $port_mpd..."
+    ynh_hide_warnings yunohost firewall allow --no-upnp TCP "$port_mpd"
 fi
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="start"
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
