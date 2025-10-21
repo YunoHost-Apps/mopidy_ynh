@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -14,27 +8,21 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 mpd_state="${boolstr[mpd_ext]}"
-ynh_app_setting_set --app="$app" --key=mpd_state --value="$mpd_state"
+ynh_app_setting_set --key=mpd_state --value="$mpd_state"
 
 #=================================================
 # APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=1
-
+ynh_script_progression "Setting up source files..."
 
 #=================================================
 # INSTALL MOPIDY IN PYTHON ENVIRONMENT
 #=================================================
-ynh_script_progression --message="Install in Python environment..." --weight=30
+ynh_script_progression "Install in Python environment..."
 
 _mopidy_install
-# patch -u $install_dir/venv/lib/python$python_version/site-packages/mopidy/__main__.py -i ../sources/patches/__main__.patch --forward
-
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R "$app:www-data" "$install_dir"
 
 chmod -R o-rwx "$data_dir"
 chown -R "$app:www-data" "$data_dir"
@@ -42,9 +30,9 @@ chown -R "$app:www-data" "$data_dir"
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..."
+ynh_script_progression "Adding $app's configuration..."
 
-ynh_add_config --template="app.conf" --destination="$install_dir/$app.conf"
+ynh_config_add --template="app.conf" --destination="$install_dir/$app.conf"
 
 chmod 400 "$install_dir/$app.conf"
 chown "$app:$app" "$install_dir/$app.conf"
@@ -52,9 +40,9 @@ chown "$app:$app" "$install_dir/$app.conf"
 #=================================================
 # PROVIDE ADDITIONAL SHELL COMMAND
 #=================================================
-ynh_script_progression --message="Provide additional shell command..."
+ynh_script_progression "Provide additional shell command..."
 
-ynh_add_config --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
+ynh_config_add --template="../sources/extra_files/mopidyctl" --destination="$cmd_file"
 
 chmod +x "$cmd_file"
 
@@ -63,7 +51,7 @@ chmod +x "$cmd_file"
 #=================================================
 # BUILD MULTIMEDIA
 #=================================================
-ynh_script_progression --message="Building multimedia directory..."
+ynh_script_progression "Building multimedia directory..."
 
 ynh_multimedia_build_main_dir      # /home/yunohost.multimedia
 
@@ -87,13 +75,13 @@ fi
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
+ynh_script_progression "Adding system configurations related to $app..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 if [ "$mpd_ext" -eq 1 ]; then
     yunohost service add "$app" --description="Mopidy music server" --needs_exposed_ports="$port_mpd"
 else
@@ -104,14 +92,14 @@ fi
 # OPEN PORT
 #=================================================
 if [ "$mpd_ext" -eq 1 ]; then
-    ynh_script_progression --message="Opening MPD-port $port_mpd..." --weight=1
-    ynh_exec_warn_less yunohost firewall allow --no-upnp TCP "$port_mpd"
+    ynh_script_progression "Opening MPD-port $port_mpd..."
+    ynh_hide_warnings yunohost firewall allow --no-upnp TCP "$port_mpd"
 fi
 
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring domain-wide permissions..."
+ynh_script_progression "Configuring domain-wide permissions..."
 
 ynh_permission_url --permission="main" --add_url="$domain/mopidy/ws"
 ynh_permission_url --permission="main" --add_url="$domain/musicbox_webclient"
@@ -122,20 +110,20 @@ ynh_permission_url --permission="main" --add_url="$domain/local"
 #=================================================
 # SCAN LOCAL MEDIA DIRECTORY
 #=================================================
-ynh_script_progression --message="Running the initial local media directory..."
+ynh_script_progression "Running the initial local media directory..."
 
 "$cmd_file" local scan  2>&1
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..."
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name="$app" --action="start"
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #=================================================
-# COMMON VARIABLES
+# COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
 boolstr=(false true)
@@ -10,22 +10,13 @@ cmd_file="/usr/local/bin/mopidyctl"
 
 media_dir="/home/yunohost.multimedia/share/Music"
 
-#=================================================
-# PERSONAL HELPERS
-#=================================================
-
 _mopidy_install() {
-    python3 -m venv --upgrade "$install_dir/venv"
-    chown -R "$app" "$install_dir"
-
-    venvpy="$install_dir/venv/bin/python3"
-
-    ynh_exec_as "$app" "$venvpy" -m pip install --upgrade --no-cache-dir pip
-
-    ynh_exec_as "$app" "$venvpy" -m pip install PyGObject
+    ynh_exec_as_app python3 -m venv "$install_dir/venv"
+    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade --no-cache-dir pip
+    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade PyGObject==3.50.0
 
     # install essential packages
-    ynh_exec_as "$app" "$venvpy" -m pip install --no-cache-dir \
+    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --no-cache-dir \
         Mopidy=="$(ynh_app_upstream_version)" \
         Mopidy-local==3.2.1 \
         Mopidy-MusicBox-Webclient==3.1.0 \
@@ -37,11 +28,3 @@ _mopidy_install() {
         Mopidy-SoundCloud==3.0.2 \
         Mopidy-MPD==3.3.0
 }
-
-#=================================================
-# EXPERIMENTAL HELPERS
-#=================================================
-
-#=================================================
-# FUTURE OFFICIAL HELPERS
-#=================================================

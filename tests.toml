@@ -7,5 +7,3 @@ test_format = 1.0
     # ------------
 
     args.superuser = "package_checker"
-
-    test_upgrade_from.cfc42dd5.name = "Last manifestv1 package"
