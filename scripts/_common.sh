@@ -15,6 +15,9 @@ _mopidy_install() {
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade --no-cache-dir pip
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --upgrade PyGObject==3.50.0
 
+    # Temporary workaround for the missing pkg_resources (as of isso 0.13.0)
+    ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install setuptools==80.0.0
+
     # install essential packages
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --no-cache-dir \
         Mopidy=="$(ynh_app_upstream_version)" \
