@@ -11,7 +11,7 @@ It shall NOT be edited by hand.
 Play music, podcasts and radio programs from local disk and various streaming services
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://www.mopidy.com)
-[![Version: 3.4.2~ynh6](https://img.shields.io/badge/Version-3.4.2~ynh6-rgb(18,138,11)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
+[![Version: 4.0.0~ynh1](https://img.shields.io/badge/Version-4.0.0~ynh1-rgb(18,138,11)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/mopidy/)
 
 <div align="center">
 <a href="https://apps.yunohost.org/app/mopidy"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_more_info_on_the_appstore.svg"/></a>
