@@ -83,7 +83,7 @@ ram.runtime = "50M"
         "gstreamer1.0-pulseaudio",
         "gstreamer1.0-tools",
         "libcairo2-dev",
-        "libgirepository1.0-dev",
+        "libgirepository-2.0-dev",
         "lsb-base",
         "postgresql-contrib",
         "postgresql",
