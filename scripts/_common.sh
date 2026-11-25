@@ -17,12 +17,11 @@ _mopidy_install() {
     # install essential packages
     ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install --no-cache-dir \
         Mopidy=="$(ynh_app_upstream_version)" \
-        Mopidy-local==3.3.0 \
+        Mopidy-local==4.0.1 \
         Mopidy-MusicBox-Webclient==3.1.0 \
-        Mopidy-YouTube==3.7 \
-        Mopidy-RadioNet==0.2.2 \
-        Mopidy-Podcast==3.0.1 \
-        Mopidy-Podcast-iTunes==3.0.1 \
-        Mopidy-SoundCloud==3.0.2 \
-        Mopidy-MPD==3.3.0
+        Mopidy-YouTube==4.0.4 \
+        Mopidy-Podcast==4.0.0 \
+        Mopidy-Podcast-iTunes==4.0.0 \
+        Mopidy-SoundCloud==4.0.0 \
+        Mopidy-MPD==4.1.0
 }
