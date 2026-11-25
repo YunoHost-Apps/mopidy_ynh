@@ -24,7 +24,6 @@ _mopidy_install() {
         Mopidy-local==3.3.0 \
         Mopidy-MusicBox-Webclient==3.1.0 \
         Mopidy-YouTube==3.7 \
-        Mopidy-YTMusic==0.3.8 \
         Mopidy-RadioNet==0.2.2 \
         Mopidy-Podcast==3.0.1 \
         Mopidy-Podcast-iTunes==3.0.1 \
